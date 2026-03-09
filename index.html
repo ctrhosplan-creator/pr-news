@@ -7,30 +7,13 @@
 
 <style>
 
-/* ====== Page ====== */
-
 body{
-font-family: "Sarabun", sans-serif;
-background:#f4f6fb;
+font-family:"Sarabun",sans-serif;
+background:#eef2f7;
 margin:0;
-padding:0;
 }
 
-/* ====== A4 Banner ====== */
-
-.a4-banner{
-width:100%;
-max-width:1200px;
-margin:auto;
-}
-
-.a4-banner img{
-width:100%;
-height:auto;
-display:block;
-}
-
-/* ====== Header ====== */
+/* HEADER */
 
 .header{
 background:linear-gradient(120deg,#0d47a1,#1976d2,#42a5f5);
@@ -52,29 +35,23 @@ font-size:24px;
 
 .subtitle{
 font-size:14px;
-opacity:.9;
 }
 
-/* ====== Form ====== */
+/* FORM */
 
 .form{
-padding:20px;
 background:white;
 max-width:900px;
-margin:auto;
-margin-top:20px;
+margin:20px auto;
+padding:20px;
 border-radius:6px;
-box-shadow:0 2px 8px rgba(0,0,0,0.1);
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
 
-label{
-font-weight:bold;
-}
-
-input, textarea{
+input,textarea{
 width:100%;
 padding:8px;
-margin-top:6px;
+margin-top:5px;
 margin-bottom:12px;
 border:1px solid #ccc;
 border-radius:4px;
@@ -87,10 +64,10 @@ color:white;
 border:none;
 border-radius:4px;
 cursor:pointer;
-margin-right:6px;
+margin-right:5px;
 }
 
-/* ====== Result ====== */
+/* RESULT */
 
 #result{
 background:white;
@@ -98,7 +75,6 @@ max-width:900px;
 margin:20px auto;
 padding:30px;
 border-radius:6px;
-box-shadow:0 2px 8px rgba(0,0,0,0.1);
 }
 
 .title{
@@ -113,23 +89,40 @@ text-align:right;
 margin-bottom:20px;
 }
 
-/* ====== Image Grid ====== */
+/* IMAGE LAYOUT */
 
-.gallery{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:10px;
-margin-top:20px;
-}
-
-.gallery img{
+.gallery-main img{
 width:100%;
-height:200px;
+height:350px;
 object-fit:cover;
 border-radius:6px;
 }
 
-/* ====== Print A4 ====== */
+.gallery-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px;
+margin-top:8px;
+}
+
+.gallery-grid img{
+width:100%;
+height:120px;
+object-fit:cover;
+border-radius:4px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+.gallery-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+/* PRINT */
 
 @page{
 size:A4;
@@ -138,15 +131,7 @@ margin:1.5cm;
 
 @media print{
 
-body{
-background:white;
-}
-
 .form{
-display:none;
-}
-
-#a4-banner{
 display:none;
 }
 
@@ -156,14 +141,6 @@ display:none;
 </head>
 
 <body>
-
-<!-- ====== Banner ====== -->
-
-<div class="a4-banner" id="a4-banner">
-<img src="banner-pr-news.png" alt="PR Banner">
-</div>
-
-<!-- ====== Header ====== -->
 
 <div class="header">
 
@@ -178,34 +155,25 @@ display:none;
 
 </div>
 
-<!-- ====== Form ====== -->
-
 <div class="form">
 
 <label>หน่วยงาน</label>
 <input id="dept">
 
-<label>หัวข้อข่าว</label>
-<input id="title">
-
 <label>รายละเอียดข่าว</label>
-<textarea id="detail" rows="5"></textarea>
+<textarea id="detail"></textarea>
 
-<label>อัปโหลดรูปภาพ (สูงสุด 9 รูป)</label>
+<label>อัปโหลดรูป (สูงสุด 9 รูป)</label>
 <input type="file" id="images" multiple>
 
 <button onclick="generate()">สร้างข่าว</button>
-<button onclick="window.print()">Export / Print A4</button>
+<button onclick="window.print()">Export A4</button>
 
 </div>
-
-<!-- ====== Result ====== -->
 
 <div id="result"></div>
 
 <script>
-
-/* ===== Thai Date ===== */
 
 function thaiDate(){
 
@@ -216,15 +184,9 @@ const months=[
 
 let d=new Date()
 
-let day=d.getDate()
-let month=months[d.getMonth()]
-let year=d.getFullYear()+543
-
-return "วันที่ "+day+" "+month+" "+year
+return "วันที่ "+d.getDate()+" "+months[d.getMonth()]+" "+(d.getFullYear()+543)
 
 }
-
-/* ===== Generate News ===== */
 
 function generate(){
 
@@ -238,12 +200,27 @@ let html=""
 html+="<div class='title'>"+title+"</div>"
 html+="<div class='date'>"+thaiDate()+"</div>"
 
-html+="<b>หน่วยงาน : "+dept+"</b><br><br>"
-html+=detail
+html+="<b>"+dept+"</b><br><br>"+detail
 
-html+="<div class='gallery'>"
+/* MAIN IMAGE */
 
-for(let i=0;i<files.length && i<9;i++){
+if(files.length>0){
+
+let main=URL.createObjectURL(files[0])
+
+html+="<div class='gallery-main'>"
+html+="<img src='"+main+"'>"
+html+="</div>"
+
+}
+
+/* GRID IMAGES */
+
+if(files.length>1){
+
+html+="<div class='gallery-grid'>"
+
+for(let i=1;i<files.length && i<9;i++){
 
 let url=URL.createObjectURL(files[i])
 
@@ -252,6 +229,8 @@ html+="<img src='"+url+"'>"
 }
 
 html+="</div>"
+
+}
 
 document.getElementById("result").innerHTML=html
 
