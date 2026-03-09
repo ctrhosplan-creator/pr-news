@@ -18,8 +18,6 @@ padding:20px;
 background:#eef3fb;
 }
 
-/* form */
-
 .formbox{
 background:white;
 max-width:900px;
@@ -47,8 +45,6 @@ border-radius:6px;
 cursor:pointer;
 }
 
-/* poster */
-
 .poster{
 width:900px;
 margin:auto;
@@ -57,7 +53,7 @@ border-radius:10px;
 overflow:hidden;
 }
 
-/* banner graphic */
+/* banner */
 
 .header{
 
@@ -75,39 +71,8 @@ position:relative;
 overflow:hidden;
 }
 
-.header:before{
-
-content:"";
-position:absolute;
-width:300px;
-height:300px;
-background:rgba(255,255,255,0.08);
-border-radius:50%;
-top:-120px;
-right:-80px;
-
-}
-
-.header:after{
-
-content:"";
-position:absolute;
-width:200px;
-height:200px;
-background:rgba(255,255,255,0.08);
-border-radius:50%;
-bottom:-100px;
-left:-60px;
-
-}
-
 .header img{
 height:85px;
-z-index:2;
-}
-
-.header-text{
-z-index:2;
 }
 
 .header h1{
@@ -128,17 +93,25 @@ color:white;
 font-size:32px;
 font-weight:bold;
 padding:12px 30px;
-letter-spacing:1px;
 }
 
-/* date */
+/* meta */
+
+.meta{
+text-align:center;
+font-size:18px;
+padding:10px;
+color:#0d47a1;
+}
 
 .date{
-text-align:center;
-font-size:26px;
+font-size:22px;
 font-weight:bold;
-color:#0d47a1;
-padding:15px;
+}
+
+.dept{
+font-size:20px;
+margin-top:5px;
 }
 
 /* content */
@@ -186,6 +159,8 @@ font-size:16px;
 
 <h3>กรอกข้อมูลข่าว</h3>
 
+<label>หน่วยงาน</label> <input type="text" id="dept" placeholder="เช่น งานประชาสัมพันธ์">
+
 <label>วันที่กิจกรรม</label> <input type="date" id="date">
 
 <label>รายละเอียดข่าว</label>
@@ -204,7 +179,7 @@ font-size:16px;
 
 <img src="moph.png">
 
-<div class="header-text">
+<div>
 
 <h1>โรงพยาบาลจัตุรัส จังหวัดชัยภูมิ</h1>
 
@@ -220,7 +195,13 @@ font-size:16px;
 ข่าวประชาสัมพันธ์
 </div>
 
+<div class="meta">
+
+<div class="dept" id="showdept"></div>
+
 <div class="date" id="showdate"></div>
+
+</div>
 
 <div class="content" id="showdetail"></div>
 
@@ -252,6 +233,8 @@ return "วันที่ "+day+" "+month+" "+year
 }
 
 function generate(){
+
+showdept.innerText="หน่วยงาน : "+dept.value
 
 showdate.innerText=formatThaiDate(date.value)
 
