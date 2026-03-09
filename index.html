@@ -238,7 +238,7 @@ width:100%;
 <input type="file" id="images" multiple accept="image/*">
 
 <button onclick="generate()">สร้างข่าว</button>
-<button onclick="download()">ดาวน์โหลด JPG</button>
+<button onclick="download()">📥 บันทึกรูปลงมือถือ</button>
 
 </div>
 
@@ -334,13 +334,25 @@ reader.readAsDataURL(files[i])
 
 function download(){
 
-html2canvas(document.querySelector("#poster"),{scale:4}).then(canvas=>{
+html2canvas(document.querySelector("#poster"),{
+scale:5
+}).then(canvas=>{
 
-let link=document.createElement("a")
+canvas.toBlob(function(blob){
 
-link.download="ข่าวประชาสัมพันธ์.jpg"
-link.href=canvas.toDataURL("image/jpeg")
-link.click()
+let url = URL.createObjectURL(blob)
+
+let a = document.createElement("a")
+a.href = url
+a.download = "ข่าวประชาสัมพันธ์.jpg"
+
+document.body.appendChild(a)
+a.click()
+
+document.body.removeChild(a)
+URL.revokeObjectURL(url)
+
+})
 
 })
 
