@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="th">
 <head>
 <meta charset="UTF-8">
@@ -13,8 +14,8 @@
 body{
 font-family:Tahoma;
 margin:0;
-padding:20px;
-background:#eef2f8;
+padding:15px;
+background:#eef3fb;
 }
 
 /* ฟอร์ม */
@@ -25,8 +26,8 @@ max-width:900px;
 margin:auto;
 padding:20px;
 border-radius:10px;
-box-shadow:0 5px 20px rgba(0,0,0,0.1);
-margin-bottom:25px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+margin-bottom:20px;
 }
 
 input,textarea{
@@ -49,33 +50,82 @@ margin-right:10px;
 font-size:16px;
 }
 
-/* A4 */
+/* โปสเตอร์ */
 
 .poster{
-width:794px;
-min-height:1123px;
+max-width:900px;
+width:100%;
 margin:auto;
 background:white;
-border-radius:12px;
+border-radius:10px;
 overflow:hidden;
-box-shadow:0 15px 40px rgba(0,0,0,0.25);
 }
 
-/* HEADER */
+/* แบนเนอร์กราฟฟิค */
 
 .header{
-background:linear-gradient(135deg,#0d47a1,#1976d2,#42a5f5);
+
+background:
+linear-gradient(120deg,#0d47a1,#1976d2,#42a5f5);
+
 color:white;
 padding:30px;
 display:flex;
-align-items:left;
+align-items:center;
 gap:20px;
 position:relative;
 overflow:hidden;
+
+}
+
+/* วงกลมกราฟฟิค */
+
+.header:before{
+
+content:"";
+position:absolute;
+width:280px;
+height:280px;
+background:rgba(255,255,255,0.08);
+border-radius:50%;
+top:-120px;
+right:-80px;
+
+}
+
+.header:after{
+
+content:"";
+position:absolute;
+width:200px;
+height:200px;
+background:rgba(255,255,255,0.08);
+border-radius:50%;
+bottom:-100px;
+left:-60px;
+
+}
+
+/* เส้นเฉียง */
+
+.header .shape{
+
+position:absolute;
+width:120%;
+height:80px;
+background:rgba(255,255,255,0.08);
+transform:rotate(-8deg);
+top:40px;
+left:-40px;
+
 }
 
 .header img{
-height:80px;
+height:70px;
+z-index:2;
+}
+
+.header-text{
 z-index:2;
 }
 
@@ -89,27 +139,26 @@ font-size:14px;
 opacity:.9;
 }
 
-/* TITLE */
+/* title */
 
 .titlebar{
 background:#0d47a1;
 color:white;
-font-size:30px;
+font-size:28px;
 font-weight:bold;
-padding:12px;
-text-align:center;
+padding:10px 25px;
 }
 
-/* META */
+/* meta */
 
 .meta{
 text-align:center;
-padding:15px;
+padding:10px;
 color:#0d47a1;
 }
 
 #showdept{
-font-size:22px;
+font-size:20px;
 font-weight:bold;
 }
 
@@ -118,58 +167,62 @@ font-size:18px;
 margin-top:5px;
 }
 
-/* CONTENT */
+/* content */
 
 .content{
-padding:10px 40px 20px 40px;
-font-size:19px;
-line-height:1.8;
-text-align:left;
-white-space:pre-line;
+padding:0 25px 20px 25px;
+font-size:18px;
+line-height:1.6;
+text-align:center;
 }
 
-/* IMAGES */
+/* images */
 
 .images{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:12px;
-padding:25px;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+padding:20px;
 }
 
 .images img{
 width:100%;
-height:200px;
+height:180px;
 object-fit:cover;
-border-radius:8px;
-box-shadow:0 5px 12px rgba(0,0,0,0.15);
+border-radius:6px;
 }
 
-/* FOOTER */
+/* footer */
 
 .footer{
 background:linear-gradient(90deg,#1e88e5,#42a5f5);
 color:white;
-padding:15px;
+padding:12px;
 text-align:center;
-font-size:16px;
+font-size:15px;
 }
 
-/* MOBILE */
+/* มือถือ */
 
-@media(max-width:900px){
+@media(max-width:600px){
 
-.poster{
-width:100%;
+.header{
+flex-direction:column;
+text-align:center;
 }
 
 .images{
 grid-template-columns:repeat(2,1fr);
 }
 
+.images img{
+height:150px;
+}
+
 }
 
 </style>
+
 </head>
 
 <body>
@@ -178,20 +231,17 @@ grid-template-columns:repeat(2,1fr);
 
 <h3>กรอกข้อมูลข่าวประชาสัมพันธ์</h3>
 
-<label>หน่วยงาน</label>
-<input type="text" id="dept">
+<label>หน่วยงาน</label> <input type="text" id="dept">
 
-<label>วันที่กิจกรรม</label>
-<input type="date" id="date">
+<label>วันที่กิจกรรม</label> <input type="date" id="date">
 
 <label>รายละเอียดข่าว</label>
-<textarea id="detail" rows="6"></textarea>
 
-<label>รูปภาพกิจกรรม (สูงสุด 9 รูป)</label>
-<input type="file" id="images" multiple accept="image/*">
+<textarea id="detail"></textarea>
 
-<button onclick="generate()">สร้างข่าว</button>
-<button onclick="download()">ดาวน์โหลด JPG</button>
+<label>รูปภาพกิจกรรม (สูงสุด 9 รูป)</label> <input type="file" id="images" multiple accept="image/*" capture="environment">
+
+<button onclick="generate()">สร้างข่าว</button> <button onclick="download()">ดาวน์โหลด JPG</button>
 
 </div>
 
@@ -199,9 +249,11 @@ grid-template-columns:repeat(2,1fr);
 
 <div class="header">
 
+<div class="shape"></div>
+
 <img src="moph.png">
 
-<div>
+<div class="header-text">
 
 <h1>โรงพยาบาลจัตุรัส จังหวัดชัยภูมิ</h1>
 
@@ -220,6 +272,7 @@ grid-template-columns:repeat(2,1fr);
 <div class="meta">
 
 <div id="showdept"></div>
+
 <div id="showdate"></div>
 
 </div>
@@ -237,8 +290,6 @@ www.ctrhos.go.th | โทร 044-851499
 <script>
 
 function formatThaiDate(dateStr){
-
-if(!dateStr) return ""
 
 const months=[
 "มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน",
@@ -258,25 +309,14 @@ return "วันที่ "+day+" "+month+" "+year
 function generate(){
 
 showdept.innerText="หน่วยงาน : "+dept.value
-
 showdate.innerText=formatThaiDate(date.value)
-
-let text = detail.value
-
-text = text.replace(/^- /gm,"• ")
-
-showdetail.innerText = text
+showdetail.innerText=detail.value
 
 let files=images.files
 
-if(files.length>9){
-alert("เลือกรูปได้ไม่เกิน 9 รูป")
-return
-}
-
 showimages.innerHTML=""
 
-for(let i=0;i<files.length;i++){
+for(let i=0;i<files.length && i<9;i++){
 
 let reader=new FileReader()
 
@@ -297,15 +337,13 @@ reader.readAsDataURL(files[i])
 
 function download(){
 
-html2canvas(document.querySelector("#poster"),{
-scale:5
-}).then(canvas=>{
+html2canvas(document.querySelector("#poster"),{scale:3}).then(canvas=>{
 
 let link=document.createElement("a")
 
 link.download="ข่าวประชาสัมพันธ์.jpg"
 
-link.href=canvas.toDataURL("image/jpeg",1)
+link.href=canvas.toDataURL("image/jpeg")
 
 link.click()
 
