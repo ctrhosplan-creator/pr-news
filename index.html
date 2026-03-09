@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>ระบบสร้างจดหมายข่าว</title>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<style>
+body{
+font-family:tahoma;
+background:#f2f2f2;
+margin:0;
+}
+
+.container{
+width:900px;
+margin:auto;
+margin-top:30px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+}
+
+input,textarea,select{
+width:100%;
+padding:10px;
+margin-top:8px;
+margin-bottom:15px;
+}
+
+button{
+background:#2e7d32;
+color:white;
+border:none;
+padding:10px 20px;
+cursor:pointer;
+}
+
+.preview{
+width:794px;
+height:1123px;
+background:white;
+padding:30px;
+margin-top:40px;
+}
+
+.images{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+}
+
+.images img{
+width:100%;
+height:150px;
+object-fit:cover;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h2>สร้างจดหมายข่าว</h2>
+
+<label>วันที่</label>
+<input type="date" id="date">
+
+<label>ชื่อกิจกรรม</label>
+<input type="text" id="title">
+
+<label>รายละเอียด</label>
+<textarea id="detail"></textarea>
+
+<label>หน่วยงาน</label>
+<select id="dept">
+<option>สสอ.</option>
+<option>รพ.สต.</option>
+<option>งานส่งเสริมสุขภาพ</option>
+<option>งานควบคุมโรค</option>
+</select>
+
+<label>รูปภาพ</label>
+<input type="file" id="images" multiple>
+
+<button onclick="generate()">สร้างจดหมายข่าว</button>
+<button onclick="download()">ดาวน์โหลด JPG</button>
+
+</div>
+
+<div id="news" class="preview">
+
+<h1 style="text-align:center">จดหมายข่าว</h1>
+
+<p>วันที่ : <span id="showdate"></span></p>
+
+<h2 id="showtitle"></h2>
+
+<p id="showdetail"></p>
+
+<p>หน่วยงาน : <span id="showdept"></span></p>
+
+<div class="images" id="showimages"></div>
+
+</div>
+
+</div>
+
+<script>
+
+function generate(){
+
+showdate.innerText=date.value
+showtitle.innerText=title.value
+showdetail.innerText=detail.value
+showdept.innerText=dept.value
+
+let files=images.files
+showimages.innerHTML=""
+
+for(let i=0;i<files.length;i++){
+
+let reader=new FileReader()
+
+reader.onload=function(e){
+
+let img=document.createElement("img")
+img.src=e.target.result
+showimages.appendChild(img)
+
+}
+
+reader.readAsDataURL(files[i])
+
+}
+
+}
+
+function download(){
+
+html2canvas(document.querySelector("#news")).then(canvas=>{
+
+let link=document.createElement("a")
+link.download="newsletter.jpg"
+link.href=canvas.toDataURL()
+link.click()
+
+})
+
+}
+
+</script>
+
+</body>
+</html>
