@@ -39,7 +39,7 @@ font-size:16px;
 }
 
 button{
-background:#2e7d32;
+background:#0a8f55;
 color:white;
 border:none;
 padding:12px 18px;
@@ -59,16 +59,17 @@ background:white;
 border-radius:10px;
 overflow:hidden;
 box-shadow:0 10px 30px rgba(0,0,0,0.2);
+position:relative;
 }
 
-/* แบนเนอร์ */
+/* HEADER */
 
 .header{
 
 background:
 radial-gradient(circle at 20% 30%,rgba(255,255,255,0.25) 0%,transparent 40%),
 radial-gradient(circle at 80% 20%,rgba(255,255,255,0.15) 0%,transparent 40%),
-linear-gradient(120deg,#1b5e20,#2e7d32,#66bb6a);
+linear-gradient(120deg,#006c3c,#0a8f55,#6cc24a);
 
 color:white;
 padding:30px;
@@ -122,7 +123,6 @@ right:60px;
 bottom:20px;
 width:140px;
 height:80px;
-
 background-image:radial-gradient(rgba(255,255,255,0.4) 2px, transparent 2px);
 background-size:16px 16px;
 opacity:.6;
@@ -150,7 +150,7 @@ opacity:.9;
 /* title */
 
 .titlebar{
-background:#1b5e20;
+background:#006c3c;
 color:white;
 font-size:28px;
 font-weight:bold;
@@ -162,7 +162,7 @@ padding:10px 25px;
 .meta{
 text-align:center;
 padding:10px;
-color:#1b5e20;
+color:#006c3c;
 }
 
 #showdept{
@@ -204,7 +204,7 @@ border-radius:6px;
 /* footer */
 
 .footer{
-background:linear-gradient(90deg,#2e7d32,#66bb6a);
+background:linear-gradient(90deg,#006c3c,#0a8f55);
 color:white;
 padding:12px;
 text-align:center;
@@ -306,7 +306,6 @@ function generate(){
 
 showdept.innerText="หน่วยงาน : "+dept.value
 showdate.innerText=formatThaiDate(date.value)
-
 showdetail.innerText=detail.value
 
 let files=images.files
