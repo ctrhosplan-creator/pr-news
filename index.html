@@ -26,35 +26,8 @@ position:relative;
 overflow:hidden;
 }
 
-.header:before{
-content:"";
-position:absolute;
-width:300px;
-height:300px;
-background:rgba(255,255,255,0.08);
-border-radius:50%;
-top:-120px;
-right:-100px;
-}
-
-.header:after{
-content:"";
-position:absolute;
-width:200px;
-height:200px;
-background:rgba(255,255,255,0.08);
-border-radius:50%;
-bottom:-80px;
-left:-60px;
-}
-
 .header img{
 height:70px;
-z-index:2;
-}
-
-.header-text{
-z-index:2;
 }
 
 .header h1{
@@ -97,6 +70,20 @@ background:white;
 margin:20px;
 }
 
+/* BADGE */
+
+.badge{
+background:#1976d2;
+color:white;
+display:inline-block;
+padding:6px 14px;
+border-radius:20px;
+font-size:14px;
+margin-bottom:10px;
+}
+
+/* TITLE */
+
 .title{
 font-size:22px;
 font-weight:bold;
@@ -104,9 +91,30 @@ text-align:center;
 margin-bottom:10px;
 }
 
+/* DATE */
+
 .date{
 text-align:right;
 margin-bottom:20px;
+}
+
+/* DEPARTMENT */
+
+.department{
+background:#eef4ff;
+padding:10px;
+border-left:5px solid #1976d2;
+margin-bottom:15px;
+font-weight:bold;
+}
+
+/* CONTENT */
+
+.content{
+text-align:left;
+line-height:1.7;
+font-size:16px;
+white-space:pre-line;
 }
 
 /* IMAGE GRID */
@@ -131,13 +139,11 @@ border-radius:6px;
 
 <body>
 
-<!-- HEADER -->
-
 <div class="header">
 
 <img src="moph.png">
 
-<div class="header-text">
+<div>
 
 <h1>โรงพยาบาลจัตุรัส จังหวัดชัยภูมิ</h1>
 
@@ -148,8 +154,6 @@ border-radius:6px;
 </div>
 
 </div>
-
-<!-- FORM -->
 
 <div class="form">
 
@@ -169,8 +173,6 @@ border-radius:6px;
 <button onclick="window.print()">Export A4</button>
 
 </div>
-
-<!-- RESULT -->
 
 <div id="result"></div>
 
@@ -202,10 +204,15 @@ let files=document.getElementById("images").files
 
 let html=""
 
+html+="<div class='badge'>ข่าวประชาสัมพันธ์</div>"
+
 html+="<div class='title'>"+title+"</div>"
+
 html+="<div class='date'>"+thaiDate()+"</div>"
 
-html+="<b>"+dept+"</b><br><br>"+detail
+html+="<div class='department'>"+dept+"</div>"
+
+html+="<div class='content'>"+detail+"</div>"
 
 html+="<div class='gallery'>"
 
