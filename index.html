@@ -1,137 +1,53 @@
 <!DOCTYPE html>
-
 <html lang="th">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>ระบบสร้างข่าวประชาสัมพันธ์</title>
-
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 <style>
 
+/* ====== Page ====== */
+
 body{
-font-family:Tahoma;
+font-family: "Sarabun", sans-serif;
+background:#f4f6fb;
 margin:0;
-padding:15px;
-background:#eef3fb;
+padding:0;
 }
 
-/* ฟอร์ม */
+/* ====== A4 Banner ====== */
 
-.formbox{
-background:white;
-max-width:900px;
-margin:auto;
-padding:20px;
-border-radius:10px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-margin-bottom:20px;
-}
-
-input,textarea{
+.a4-banner{
 width:100%;
-padding:10px;
-margin-bottom:15px;
-border:1px solid #ccc;
-border-radius:6px;
-font-size:16px;
-}
-
-button{
-background:#1565c0;
-color:white;
-border:none;
-padding:12px 18px;
-border-radius:6px;
-cursor:pointer;
-margin-right:10px;
-font-size:16px;
-}
-
-/* โปสเตอร์ */
-
-.poster{
-max-width:900px;
-width:100%;
+max-width:1200px;
 margin:auto;
-background:white;
-border-radius:10px;
-overflow:hidden;
 }
 
-/* แบนเนอร์กราฟฟิค */
+.a4-banner img{
+width:100%;
+height:auto;
+display:block;
+}
+
+/* ====== Header ====== */
 
 .header{
-
-background:
-linear-gradient(120deg,#0d47a1,#1976d2,#42a5f5);
-
+background:linear-gradient(120deg,#0d47a1,#1976d2,#42a5f5);
 color:white;
 padding:30px;
 display:flex;
 align-items:center;
 gap:20px;
-position:relative;
-overflow:hidden;
-
-}
-
-/* วงกลมกราฟฟิค */
-
-.header:before{
-
-content:"";
-position:absolute;
-width:280px;
-height:280px;
-background:rgba(255,255,255,0.08);
-border-radius:50%;
-top:-120px;
-right:-80px;
-
-}
-
-.header:after{
-
-content:"";
-position:absolute;
-width:200px;
-height:200px;
-background:rgba(255,255,255,0.08);
-border-radius:50%;
-bottom:-100px;
-left:-60px;
-
-}
-
-/* เส้นเฉียง */
-
-.header .shape{
-
-position:absolute;
-width:120%;
-height:80px;
-background:rgba(255,255,255,0.08);
-transform:rotate(-8deg);
-top:40px;
-left:-40px;
-
 }
 
 .header img{
 height:70px;
-z-index:2;
-}
-
-.header-text{
-z-index:2;
 }
 
 .header h1{
 margin:0;
-font-size:26px;
+font-size:24px;
 }
 
 .subtitle{
@@ -139,164 +55,166 @@ font-size:14px;
 opacity:.9;
 }
 
-/* title */
+/* ====== Form ====== */
 
-.titlebar{
-background:#0d47a1;
+.form{
+padding:20px;
+background:white;
+max-width:900px;
+margin:auto;
+margin-top:20px;
+border-radius:6px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+label{
+font-weight:bold;
+}
+
+input, textarea{
+width:100%;
+padding:8px;
+margin-top:6px;
+margin-bottom:12px;
+border:1px solid #ccc;
+border-radius:4px;
+}
+
+button{
+padding:10px 16px;
+background:#1976d2;
 color:white;
-font-size:28px;
+border:none;
+border-radius:4px;
+cursor:pointer;
+margin-right:6px;
+}
+
+/* ====== Result ====== */
+
+#result{
+background:white;
+max-width:900px;
+margin:20px auto;
+padding:30px;
+border-radius:6px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.title{
+font-size:22px;
 font-weight:bold;
-padding:10px 25px;
-}
-
-/* meta */
-
-.meta{
 text-align:center;
-padding:10px;
-color:#0d47a1;
+margin-bottom:10px;
 }
 
-#showdept{
-font-size:20px;
-font-weight:bold;
+.date{
+text-align:right;
+margin-bottom:20px;
 }
 
-#showdate{
-font-size:18px;
-margin-top:5px;
-}
+/* ====== Image Grid ====== */
 
-/* content */
-
-.content{
-padding:0 25px 20px 25px;
-font-size:18px;
-line-height:1.6;
-text-align:center;
-}
-
-/* images */
-
-.images{
+.gallery{
 display:grid;
 grid-template-columns:repeat(3,1fr);
 gap:10px;
-padding:20px;
+margin-top:20px;
 }
 
-.images img{
+.gallery img{
 width:100%;
-height:180px;
+height:200px;
 object-fit:cover;
 border-radius:6px;
 }
 
-/* footer */
+/* ====== Print A4 ====== */
 
-.footer{
-background:linear-gradient(90deg,#1e88e5,#42a5f5);
-color:white;
-padding:12px;
-text-align:center;
-font-size:15px;
+@page{
+size:A4;
+margin:1.5cm;
 }
 
-/* มือถือ */
+@media print{
 
-@media(max-width:600px){
-
-.header{
-flex-direction:column;
-text-align:center;
+body{
+background:white;
 }
 
-.images{
-grid-template-columns:repeat(2,1fr);
+.form{
+display:none;
 }
 
-.images img{
-height:150px;
+#a4-banner{
+display:none;
 }
 
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div class="formbox">
+<!-- ====== Banner ====== -->
 
-<h3>กรอกข้อมูลข่าวประชาสัมพันธ์</h3>
-
-<label>หน่วยงาน</label> <input type="text" id="dept">
-
-<label>วันที่กิจกรรม</label> <input type="date" id="date">
-
-<label>รายละเอียดข่าว</label>
-
-<textarea id="detail"></textarea>
-
-<label>รูปภาพกิจกรรม (สูงสุด 9 รูป)</label> <input type="file" id="images" multiple accept="image/*" capture="environment">
-
-<button onclick="generate()">สร้างข่าว</button> <button onclick="download()">ดาวน์โหลด JPG</button>
-
+<div class="a4-banner" id="a4-banner">
+<img src="banner-pr-news.png" alt="PR Banner">
 </div>
 
-<div id="poster" class="poster">
+<!-- ====== Header ====== -->
 
 <div class="header">
 
-<div class="shape"></div>
-
 <img src="moph.png">
 
-<div class="header-text">
-
+<div>
 <h1>โรงพยาบาลจัตุรัส จังหวัดชัยภูมิ</h1>
-
 <div class="subtitle">
 โรงพยาบาลชุมชนแม่ข่าย บริการมีคุณภาพ เครือข่ายมีส่วนร่วม เป็นองค์กรแห่งความสุข
 </div>
-
 </div>
 
 </div>
 
-<div class="titlebar">
-ข่าวประชาสัมพันธ์
+<!-- ====== Form ====== -->
+
+<div class="form">
+
+<label>หน่วยงาน</label>
+<input id="dept">
+
+<label>หัวข้อข่าว</label>
+<input id="title">
+
+<label>รายละเอียดข่าว</label>
+<textarea id="detail" rows="5"></textarea>
+
+<label>อัปโหลดรูปภาพ (สูงสุด 9 รูป)</label>
+<input type="file" id="images" multiple>
+
+<button onclick="generate()">สร้างข่าว</button>
+<button onclick="window.print()">Export / Print A4</button>
+
 </div>
 
-<div class="meta">
+<!-- ====== Result ====== -->
 
-<div id="showdept"></div>
-
-<div id="showdate"></div>
-
-</div>
-
-<div class="content" id="showdetail"></div>
-
-<div class="images" id="showimages"></div>
-
-<div class="footer">
-www.ctrhos.go.th | โทร 044-851499
-</div>
-
-</div>
+<div id="result"></div>
 
 <script>
 
-function formatThaiDate(dateStr){
+/* ===== Thai Date ===== */
+
+function thaiDate(){
 
 const months=[
 "มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน",
 "กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"
 ]
 
-let d=new Date(dateStr)
+let d=new Date()
 
 let day=d.getDate()
 let month=months[d.getMonth()]
@@ -306,48 +224,36 @@ return "วันที่ "+day+" "+month+" "+year
 
 }
 
+/* ===== Generate News ===== */
+
 function generate(){
 
-showdept.innerText="หน่วยงาน : "+dept.value
-showdate.innerText=formatThaiDate(date.value)
-showdetail.innerText=detail.value
+let dept=document.getElementById("dept").value
+let title=document.getElementById("title").value
+let detail=document.getElementById("detail").value
+let files=document.getElementById("images").files
 
-let files=images.files
+let html=""
 
-showimages.innerHTML=""
+html+="<div class='title'>"+title+"</div>"
+html+="<div class='date'>"+thaiDate()+"</div>"
+
+html+="<b>หน่วยงาน : "+dept+"</b><br><br>"
+html+=detail
+
+html+="<div class='gallery'>"
 
 for(let i=0;i<files.length && i<9;i++){
 
-let reader=new FileReader()
+let url=URL.createObjectURL(files[i])
 
-reader.onload=function(e){
-
-let img=document.createElement("img")
-img.src=e.target.result
-
-showimages.appendChild(img)
+html+="<img src='"+url+"'>"
 
 }
 
-reader.readAsDataURL(files[i])
+html+="</div>"
 
-}
-
-}
-
-function download(){
-
-html2canvas(document.querySelector("#poster"),{scale:3}).then(canvas=>{
-
-let link=document.createElement("a")
-
-link.download="ข่าวประชาสัมพันธ์.jpg"
-
-link.href=canvas.toDataURL("image/jpeg")
-
-link.click()
-
-})
+document.getElementById("result").innerHTML=html
 
 }
 
