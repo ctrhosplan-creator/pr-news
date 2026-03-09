@@ -61,23 +61,72 @@ border-radius:10px;
 overflow:hidden;
 }
 
-/* banner */
+/* แบนเนอร์กราฟฟิค */
 
 .header{
+
 background:
-radial-gradient(circle at 20% 30%,rgba(255,255,255,.2),transparent 40%),
-radial-gradient(circle at 80% 20%,rgba(255,255,255,.15),transparent 40%),
 linear-gradient(120deg,#0d47a1,#1976d2,#42a5f5);
 
 color:white;
-padding:25px;
+padding:30px;
 display:flex;
 align-items:center;
-gap:15px;
+gap:20px;
+position:relative;
+overflow:hidden;
+
+}
+
+/* วงกลมกราฟฟิค */
+
+.header:before{
+
+content:"";
+position:absolute;
+width:280px;
+height:280px;
+background:rgba(255,255,255,0.08);
+border-radius:50%;
+top:-120px;
+right:-80px;
+
+}
+
+.header:after{
+
+content:"";
+position:absolute;
+width:200px;
+height:200px;
+background:rgba(255,255,255,0.08);
+border-radius:50%;
+bottom:-100px;
+left:-60px;
+
+}
+
+/* เส้นเฉียง */
+
+.header .shape{
+
+position:absolute;
+width:120%;
+height:80px;
+background:rgba(255,255,255,0.08);
+transform:rotate(-8deg);
+top:40px;
+left:-40px;
+
 }
 
 .header img{
 height:70px;
+z-index:2;
+}
+
+.header-text{
+z-index:2;
 }
 
 .header h1{
@@ -182,13 +231,13 @@ height:150px;
 
 <h3>กรอกข้อมูลข่าวประชาสัมพันธ์</h3>
 
-<label>หน่วยงาน</label> <input type="text" id="dept" placeholder="เช่น งานประชาสัมพันธ์">
+<label>หน่วยงาน</label> <input type="text" id="dept">
 
 <label>วันที่กิจกรรม</label> <input type="date" id="date">
 
 <label>รายละเอียดข่าว</label>
 
-<textarea id="detail" rows="4"></textarea>
+<textarea id="detail"></textarea>
 
 <label>รูปภาพกิจกรรม (สูงสุด 9 รูป)</label> <input type="file" id="images" multiple accept="image/*" capture="environment">
 
@@ -200,13 +249,18 @@ height:150px;
 
 <div class="header">
 
+<div class="shape"></div>
+
 <img src="moph.png">
 
-<div>
+<div class="header-text">
+
 <h1>โรงพยาบาลจัตุรัส จังหวัดชัยภูมิ</h1>
+
 <div class="subtitle">
 โรงพยาบาลชุมชนแม่ข่าย บริการมีคุณภาพ เครือข่ายมีส่วนร่วม เป็นองค์กรแห่งความสุข
 </div>
+
 </div>
 
 </div>
@@ -216,8 +270,11 @@ height:150px;
 </div>
 
 <div class="meta">
+
 <div id="showdept"></div>
+
 <div id="showdate"></div>
+
 </div>
 
 <div class="content" id="showdetail"></div>
@@ -283,8 +340,11 @@ function download(){
 html2canvas(document.querySelector("#poster"),{scale:3}).then(canvas=>{
 
 let link=document.createElement("a")
+
 link.download="ข่าวประชาสัมพันธ์.jpg"
+
 link.href=canvas.toDataURL("image/jpeg")
+
 link.click()
 
 })
