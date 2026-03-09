@@ -49,7 +49,7 @@ margin-right:10px;
 font-size:16px;
 }
 
-/* POSTER A4 */
+/* A4 */
 
 .poster{
 width:794px;
@@ -74,50 +74,8 @@ position:relative;
 overflow:hidden;
 }
 
-/* กราฟฟิควงกลม */
-
-.header:before{
-content:"";
-position:absolute;
-width:320px;
-height:320px;
-background:rgba(255,255,255,0.08);
-border-radius:50%;
-top:-140px;
-right:-100px;
-}
-
-.header:after{
-content:"";
-position:absolute;
-width:220px;
-height:220px;
-background:rgba(255,255,255,0.08);
-border-radius:50%;
-bottom:-120px;
-left:-70px;
-}
-
-/* shape */
-
-.shape{
-position:absolute;
-width:130%;
-height:90px;
-background:rgba(255,255,255,0.07);
-transform:rotate(-7deg);
-top:55px;
-left:-50px;
-}
-
-/* logo */
-
 .header img{
 height:80px;
-z-index:2;
-}
-
-.header-text{
 z-index:2;
 }
 
@@ -131,7 +89,7 @@ font-size:14px;
 opacity:.9;
 }
 
-/* title */
+/* TITLE */
 
 .titlebar{
 background:#0d47a1;
@@ -142,7 +100,7 @@ padding:12px;
 text-align:center;
 }
 
-/* meta */
+/* META */
 
 .meta{
 text-align:center;
@@ -160,16 +118,17 @@ font-size:18px;
 margin-top:5px;
 }
 
-/* content */
+/* CONTENT */
 
 .content{
 padding:10px 40px 20px 40px;
 font-size:19px;
-line-height:1.7;
-text-align:center;
+line-height:1.8;
+text-align:left;
+white-space:pre-line;
 }
 
-/* images layout */
+/* IMAGES */
 
 .images{
 display:grid;
@@ -186,7 +145,7 @@ border-radius:8px;
 box-shadow:0 5px 12px rgba(0,0,0,0.15);
 }
 
-/* footer */
+/* FOOTER */
 
 .footer{
 background:linear-gradient(90deg,#1e88e5,#42a5f5);
@@ -196,7 +155,7 @@ text-align:center;
 font-size:16px;
 }
 
-/* mobile */
+/* MOBILE */
 
 @media(max-width:900px){
 
@@ -226,7 +185,7 @@ grid-template-columns:repeat(2,1fr);
 <input type="date" id="date">
 
 <label>รายละเอียดข่าว</label>
-<textarea id="detail"></textarea>
+<textarea id="detail" rows="6"></textarea>
 
 <label>รูปภาพกิจกรรม (สูงสุด 9 รูป)</label>
 <input type="file" id="images" multiple accept="image/*">
@@ -240,11 +199,9 @@ grid-template-columns:repeat(2,1fr);
 
 <div class="header">
 
-<div class="shape"></div>
-
 <img src="moph.png">
 
-<div class="header-text">
+<div>
 
 <h1>โรงพยาบาลจัตุรัส จังหวัดชัยภูมิ</h1>
 
@@ -281,6 +238,8 @@ www.ctrhos.go.th | โทร 044-851499
 
 function formatThaiDate(dateStr){
 
+if(!dateStr) return ""
+
 const months=[
 "มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน",
 "กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"
@@ -299,13 +258,25 @@ return "วันที่ "+day+" "+month+" "+year
 function generate(){
 
 showdept.innerText="หน่วยงาน : "+dept.value
+
 showdate.innerText=formatThaiDate(date.value)
-showdetail.innerText=detail.value
+
+let text = detail.value
+
+text = text.replace(/^- /gm,"• ")
+
+showdetail.innerText = text
 
 let files=images.files
+
+if(files.length>9){
+alert("เลือกรูปได้ไม่เกิน 9 รูป")
+return
+}
+
 showimages.innerHTML=""
 
-for(let i=0;i<files.length && i<9;i++){
+for(let i=0;i<files.length;i++){
 
 let reader=new FileReader()
 
@@ -326,11 +297,14 @@ reader.readAsDataURL(files[i])
 
 function download(){
 
-html2canvas(document.querySelector("#poster"),{scale:4}).then(canvas=>{
+html2canvas(document.querySelector("#poster"),{
+scale:5
+}).then(canvas=>{
 
 let link=document.createElement("a")
 
 link.download="ข่าวประชาสัมพันธ์.jpg"
+
 link.href=canvas.toDataURL("image/jpeg",1)
 
 link.click()
