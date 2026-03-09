@@ -65,7 +65,9 @@ position:relative;
 /* HEADER */
 
 .header{
+
 background: linear-gradient(120deg,#0b7a42,#1fa463,#7ac46c);
+
 color:white;
 padding:30px;
 display:flex;
@@ -73,7 +75,10 @@ align-items:center;
 gap:20px;
 position:relative;
 overflow:hidden;
+
 }
+
+/* คลื่นขวา */
 
 .header:before{
 content:"";
@@ -86,6 +91,8 @@ background:rgba(255,255,255,0.18);
 border-radius:50%;
 }
 
+/* คลื่นซ้าย */
+
 .header:after{
 content:"";
 position:absolute;
@@ -97,6 +104,8 @@ background:rgba(255,255,255,0.12);
 border-radius:50%;
 }
 
+/* เส้นเฉียง */
+
 .shape{
 position:absolute;
 width:120%;
@@ -106,6 +115,8 @@ transform:rotate(-6deg);
 top:60px;
 left:-40px;
 }
+
+/* ลายจุด */
 
 .dots{
 position:absolute;
@@ -205,6 +216,7 @@ width:100%;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -226,7 +238,7 @@ width:100%;
 <input type="file" id="images" multiple accept="image/*">
 
 <button onclick="generate()">สร้างข่าว</button>
-<button onclick="downloadImage()">📥 บันทึกรูปลงมือถือ</button>
+<button onclick="download()">📥 บันทึกรูปลงมือถือ</button>
 
 </div>
 
@@ -293,12 +305,11 @@ return "วันที่ "+day+" "+month+" "+year
 
 function generate(){
 
-document.getElementById("showdept").innerText="หน่วยงาน : "+document.getElementById("dept").value
-document.getElementById("showdate").innerText=formatThaiDate(document.getElementById("date").value)
-document.getElementById("showdetail").innerText=document.getElementById("detail").value
+showdept.innerText="หน่วยงาน : "+dept.value
+showdate.innerText=formatThaiDate(date.value)
+showdetail.innerText=detail.value
 
-let files=document.getElementById("images").files
-let showimages=document.getElementById("showimages")
+let files=images.files
 
 showimages.innerHTML=""
 
@@ -310,6 +321,7 @@ reader.onload=function(e){
 
 let img=document.createElement("img")
 img.src=e.target.result
+
 showimages.appendChild(img)
 
 }
@@ -320,17 +332,27 @@ reader.readAsDataURL(files[i])
 
 }
 
-function downloadImage(){
+function download(){
 
-let poster=document.getElementById("poster")
+html2canvas(document.querySelector("#poster"),{
+scale:5
+}).then(canvas=>{
 
-html2canvas(poster,{scale:4}).then(canvas=>{
+canvas.toBlob(function(blob){
 
-let link=document.createElement("a")
-link.download="news.jpg"
-link.href=canvas.toDataURL("image/jpeg",1)
+let url = URL.createObjectURL(blob)
 
-link.click()
+let a = document.createElement("a")
+a.href = url
+a.download = "ข่าวประชาสัมพันธ์.jpg"
+
+document.body.appendChild(a)
+a.click()
+
+document.body.removeChild(a)
+URL.revokeObjectURL(url)
+
+})
 
 })
 
