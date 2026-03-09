@@ -1,9 +1,7 @@
 ```html
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -13,219 +11,209 @@
 
 <style>
 
-/* ================= BODY ================= */
+/* ===== BODY ===== */
 
 body{
-    font-family:Tahoma;
-    margin:0;
-    padding:20px;
-    background:#eef5f1;
+font-family:Tahoma;
+margin:0;
+padding:20px;
+background:#eef5f1;
 }
 
-/* ================= FORM ================= */
+/* ===== FORM ===== */
 
 .formbox{
-    background:white;
-    max-width:900px;
-    margin:auto;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
-    margin-bottom:20px;
+background:white;
+max-width:900px;
+margin:auto;
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+margin-bottom:20px;
 }
 
 input,textarea{
-    width:100%;
-    padding:10px;
-    margin-bottom:15px;
-    border:1px solid #ccc;
-    border-radius:6px;
-    font-size:16px;
+width:100%;
+padding:10px;
+margin-bottom:15px;
+border:1px solid #ccc;
+border-radius:6px;
+font-size:16px;
 }
 
 button{
-    background:#0a8f55;
-    color:white;
-    border:none;
-    padding:12px 18px;
-    border-radius:6px;
-    cursor:pointer;
-    margin-right:10px;
-    font-size:16px;
+background:#0a8f55;
+color:white;
+border:none;
+padding:12px 18px;
+border-radius:6px;
+cursor:pointer;
+margin-right:10px;
+font-size:16px;
 }
 
-/* ================= POSTER ================= */
+/* ===== POSTER ===== */
 
 .poster{
-    width:794px;
-    height:1123px;
-    margin:auto;
-    background:white;
-    border-radius:10px;
-    overflow:hidden;
-    box-shadow:0 10px 30px rgba(0,0,0,0.2);
-    position:relative;
+width:794px;
+height:1123px;
+margin:auto;
+background:white;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+position:relative;
 }
 
-/* ================= HEADER ================= */
+/* ===== HEADER ===== */
 
 .header{
-    background:linear-gradient(120deg,#0b7a42,#1fa463,#7ac46c);
-    color:white;
-    padding:30px;
-    display:flex;
-    align-items:center;
-    gap:20px;
-    position:relative;
-    overflow:hidden;
+background:linear-gradient(90deg,#1c7a45,#2ea85e,#7ac96d);
+color:white;
+padding:40px 30px;
+display:flex;
+align-items:center;
+gap:20px;
+position:relative;
+overflow:hidden;
 }
-
-/* คลื่นขวา */
 
 .header:before{
-    content:"";
-    position:absolute;
-    right:-120px;
-    top:-80px;
-    width:500px;
-    height:260px;
-    background:rgba(255,255,255,0.18);
-    border-radius:50%;
+content:"";
+position:absolute;
+right:-120px;
+top:-80px;
+width:520px;
+height:260px;
+background:rgba(255,255,255,0.18);
+border-radius:50%;
 }
-
-/* คลื่นซ้าย */
 
 .header:after{
-    content:"";
-    position:absolute;
-    left:-120px;
-    bottom:-100px;
-    width:420px;
-    height:220px;
-    background:rgba(255,255,255,0.12);
-    border-radius:50%;
+content:"";
+position:absolute;
+left:-150px;
+bottom:-120px;
+width:480px;
+height:240px;
+background:rgba(255,255,255,0.10);
+border-radius:50%;
 }
-
-/* เส้นเฉียง */
 
 .shape{
-    position:absolute;
-    width:120%;
-    height:70px;
-    background:rgba(255,255,255,0.10);
-    transform:rotate(-6deg);
-    top:60px;
-    left:-40px;
+position:absolute;
+width:120%;
+height:80px;
+background:rgba(255,255,255,0.12);
+transform:rotate(-5deg);
+top:70px;
+left:-40px;
 }
 
-/* ลายจุด */
-
 .dots{
-    position:absolute;
-    right:80px;
-    top:45px;
-    width:160px;
-    height:90px;
-    background-image:radial-gradient(rgba(255,255,255,0.6) 2px, transparent 2px);
-    background-size:18px 18px;
-    opacity:.7;
+position:absolute;
+right:70px;
+top:40px;
+width:170px;
+height:100px;
+background-image:radial-gradient(rgba(255,255,255,0.7) 2px, transparent 2px);
+background-size:18px 18px;
+opacity:.7;
 }
 
 .header img{
-    height:70px;
-    z-index:2;
+height:75px;
+z-index:2;
 }
 
 .header-text{
-    z-index:2;
+z-index:2;
 }
 
 .header h1{
-    margin:0;
-    font-size:26px;
+margin:0;
+font-size:28px;
+font-weight:bold;
 }
 
 .subtitle{
-    font-size:14px;
-    opacity:.9;
+font-size:15px;
+opacity:.95;
 }
 
-/* ================= TITLE ================= */
+/* ===== TITLE ===== */
 
 .titlebar{
-    background:#006c3c;
-    color:white;
-    font-size:28px;
-    font-weight:bold;
-    padding:10px 25px;
+background:#006c3c;
+color:white;
+font-size:28px;
+font-weight:bold;
+padding:10px 25px;
 }
 
-/* ================= META ================= */
+/* ===== META ===== */
 
 .meta{
-    text-align:center;
-    padding:10px;
-    color:#006c3c;
+text-align:center;
+padding:10px;
+color:#006c3c;
 }
 
 #showdept{
-    font-size:20px;
-    font-weight:bold;
+font-size:20px;
+font-weight:bold;
 }
 
 #showdate{
-    font-size:18px;
-    margin-top:5px;
+font-size:18px;
+margin-top:5px;
 }
 
-/* ================= CONTENT ================= */
+/* ===== CONTENT ===== */
 
 .content{
-    padding:10px 25px 20px 25px;
-    font-size:18px;
-    line-height:1.6;
-    text-align:center;
-    white-space:pre-line;
+padding:10px 25px 20px 25px;
+font-size:18px;
+line-height:1.6;
+text-align:center;
+white-space:pre-line;
 }
 
-/* ================= IMAGES ================= */
+/* ===== IMAGES ===== */
 
 .images{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-    padding:20px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+padding:20px;
 }
 
 .images img{
-    width:100%;
-    height:180px;
-    object-fit:cover;
-    border-radius:6px;
+width:100%;
+height:180px;
+object-fit:cover;
+border-radius:6px;
 }
 
-/* ================= FOOTER ================= */
+/* ===== FOOTER ===== */
 
 .footer{
-    background:linear-gradient(90deg,#006c3c,#0a8f55);
-    color:white;
-    padding:12px;
-    text-align:center;
-    font-size:15px;
-    position:absolute;
-    bottom:0;
-    width:100%;
+background:linear-gradient(90deg,#006c3c,#0a8f55);
+color:white;
+padding:12px;
+text-align:center;
+font-size:15px;
+position:absolute;
+bottom:0;
+width:100%;
 }
 
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- ================= FORM ================= -->
+<!-- ===== FORM ===== -->
 
 <div class="formbox">
 
@@ -248,8 +236,7 @@ button{
 
 </div>
 
-
-<!-- ================= POSTER ================= -->
+<!-- ===== POSTER ===== -->
 
 <div id="poster" class="poster">
 
@@ -290,8 +277,7 @@ www.ctrhos.go.th | โทร 044-851499
 
 </div>
 
-
-<!-- ================= SCRIPT ================= -->
+<!-- ===== SCRIPT ===== -->
 
 <script>
 
@@ -313,7 +299,6 @@ let year=d.getFullYear()+543
 return "วันที่ "+day+" "+month+" "+year
 
 }
-
 
 function generate(){
 
@@ -343,7 +328,6 @@ reader.readAsDataURL(files[i])
 }
 
 }
-
 
 function download(){
 
