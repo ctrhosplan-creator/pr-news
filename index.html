@@ -39,7 +39,7 @@ font-size:16px;
 }
 
 button{
-background:#2e7d32;
+background:#1565c0;
 color:white;
 border:none;
 padding:12px 18px;
@@ -49,7 +49,7 @@ margin-right:10px;
 font-size:16px;
 }
 
-/* POSTER A4 */
+/* A4 */
 
 .poster{
 width:794px;
@@ -59,29 +59,24 @@ background:white;
 border-radius:12px;
 overflow:hidden;
 box-shadow:0 15px 40px rgba(0,0,0,0.25);
-
-/* ลายกากบาททางการแพทย์ */
-background-image:
-linear-gradient(transparent 96%, rgba(46,125,50,0.05) 96%),
-linear-gradient(90deg, transparent 96%, rgba(46,125,50,0.05) 96%);
-background-size:60px 60px;
-
-position:relative;
 }
 
 /* HEADER */
 
 .header{
-background:linear-gradient(135deg,#1b5e20,#2e7d32,#66bb6a);
+background:linear-gradient(135deg,#0d47a1,#1976d2,#42a5f5);
 color:white;
 padding:30px;
 display:flex;
-align-items:center;
+align-items:left;
 gap:20px;
+position:relative;
+overflow:hidden;
 }
 
 .header img{
 height:80px;
+z-index:2;
 }
 
 .header h1{
@@ -97,7 +92,7 @@ opacity:.9;
 /* TITLE */
 
 .titlebar{
-background:#2e7d32;
+background:#0d47a1;
 color:white;
 font-size:30px;
 font-weight:bold;
@@ -110,7 +105,7 @@ text-align:center;
 .meta{
 text-align:center;
 padding:15px;
-color:#1b5e20;
+color:#0d47a1;
 }
 
 #showdept{
@@ -150,43 +145,14 @@ border-radius:8px;
 box-shadow:0 5px 12px rgba(0,0,0,0.15);
 }
 
-/* คลื่นสีเขียว */
-
-.wave{
-position:absolute;
-bottom:60px;
-left:0;
-width:100%;
-height:140px;
-background:linear-gradient(90deg,#2e7d32,#66bb6a);
-clip-path:polygon(
-0 60%,
-10% 50%,
-20% 65%,
-30% 55%,
-40% 70%,
-50% 60%,
-60% 75%,
-70% 65%,
-80% 80%,
-90% 70%,
-100% 85%,
-100% 100%,
-0 100%
-);
-}
-
 /* FOOTER */
 
 .footer{
-background:linear-gradient(90deg,#2e7d32,#66bb6a);
+background:linear-gradient(90deg,#1e88e5,#42a5f5);
 color:white;
 padding:15px;
 text-align:center;
 font-size:16px;
-position:absolute;
-bottom:0;
-width:100%;
 }
 
 /* MOBILE */
@@ -261,8 +227,6 @@ grid-template-columns:repeat(2,1fr);
 <div class="content" id="showdetail"></div>
 
 <div class="images" id="showimages"></div>
-
-<div class="wave"></div>
 
 <div class="footer">
 www.ctrhos.go.th | โทร 044-851499
