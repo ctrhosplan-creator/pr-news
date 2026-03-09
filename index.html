@@ -59,7 +59,7 @@ button:hover{
 background:#1b5e20;
 }
 
-/* A4 Template */
+/* Template A4 */
 
 .preview{
 width:794px;
@@ -141,7 +141,7 @@ height:120px;
 
 <label>สถานที่</label> <input type="text" id="location">
 
-<label>หน่วยงาน</label> <input type="text" id="dept" placeholder="กรอกชื่อหน่วยงาน">
+<label>หน่วยงาน (ข้อความสั้น)</label> <input type="text" id="dept" maxlength="50" placeholder="เช่น งานประชาสัมพันธ์">
 
 <label>รายละเอียดกิจกรรม</label>
 
@@ -197,10 +197,8 @@ showdept.innerText = dept.value
 let files = images.files
 
 if(files.length > 9){
-
 alert("อัปโหลดได้สูงสุด 9 รูป")
 return
-
 }
 
 showimages.innerHTML=""
