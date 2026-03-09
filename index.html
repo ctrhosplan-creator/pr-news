@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="th">
 <head>
 <meta charset="UTF-8">
@@ -61,11 +60,13 @@ border-radius:10px;
 overflow:hidden;
 }
 
-/* แบนเนอร์กราฟฟิค */
+/* แบนเนอร์ */
 
 .header{
 
 background:
+radial-gradient(circle at 20% 30%,rgba(255,255,255,0.25) 0%,transparent 40%),
+radial-gradient(circle at 80% 20%,rgba(255,255,255,0.15) 0%,transparent 40%),
 linear-gradient(120deg,#0d47a1,#1976d2,#42a5f5);
 
 color:white;
@@ -78,14 +79,14 @@ overflow:hidden;
 
 }
 
-/* วงกลมกราฟฟิค */
+/* วงกลม */
 
 .header:before{
 
 content:"";
 position:absolute;
-width:280px;
-height:280px;
+width:300px;
+height:300px;
 background:rgba(255,255,255,0.08);
 border-radius:50%;
 top:-120px;
@@ -108,15 +109,30 @@ left:-60px;
 
 /* เส้นเฉียง */
 
-.header .shape{
-
+.shape{
 position:absolute;
 width:120%;
 height:80px;
 background:rgba(255,255,255,0.08);
 transform:rotate(-8deg);
-top:40px;
+top:50px;
 left:-40px;
+}
+
+/* ลายจุด */
+
+.dots{
+
+position:absolute;
+right:60px;
+bottom:20px;
+width:140px;
+height:80px;
+
+background-image:radial-gradient(rgba(255,255,255,0.4) 2px, transparent 2px);
+background-size:16px 16px;
+
+opacity:.6;
 
 }
 
@@ -174,6 +190,7 @@ padding:0 25px 20px 25px;
 font-size:18px;
 line-height:1.6;
 text-align:center;
+white-space:pre-line;
 }
 
 /* images */
@@ -231,17 +248,20 @@ height:150px;
 
 <h3>กรอกข้อมูลข่าวประชาสัมพันธ์</h3>
 
-<label>หน่วยงาน</label> <input type="text" id="dept">
+<label>หน่วยงาน</label>
+<input type="text" id="dept">
 
-<label>วันที่กิจกรรม</label> <input type="date" id="date">
+<label>วันที่กิจกรรม</label>
+<input type="date" id="date">
 
 <label>รายละเอียดข่าว</label>
-
 <textarea id="detail"></textarea>
 
-<label>รูปภาพกิจกรรม (สูงสุด 9 รูป)</label> <input type="file" id="images" multiple accept="image/*" capture="environment">
+<label>รูปภาพกิจกรรม (สูงสุด 9 รูป)</label>
+<input type="file" id="images" multiple accept="image/*" capture="environment">
 
-<button onclick="generate()">สร้างข่าว</button> <button onclick="download()">ดาวน์โหลด JPG</button>
+<button onclick="generate()">สร้างข่าว</button>
+<button onclick="download()">ดาวน์โหลด JPG</button>
 
 </div>
 
@@ -250,6 +270,7 @@ height:150px;
 <div class="header">
 
 <div class="shape"></div>
+<div class="dots"></div>
 
 <img src="moph.png">
 
@@ -272,7 +293,6 @@ height:150px;
 <div class="meta">
 
 <div id="showdept"></div>
-
 <div id="showdate"></div>
 
 </div>
@@ -290,6 +310,8 @@ www.ctrhos.go.th | โทร 044-851499
 <script>
 
 function formatThaiDate(dateStr){
+
+if(!dateStr) return ""
 
 const months=[
 "มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน",
@@ -310,13 +332,22 @@ function generate(){
 
 showdept.innerText="หน่วยงาน : "+dept.value
 showdate.innerText=formatThaiDate(date.value)
-showdetail.innerText=detail.value
+
+let text = detail.value
+text = text.replace(/^- /gm,"• ")
+
+showdetail.innerText = text
 
 let files=images.files
 
+if(files.length>9){
+alert("เลือกรูปได้สูงสุด 9 รูป")
+return
+}
+
 showimages.innerHTML=""
 
-for(let i=0;i<files.length && i<9;i++){
+for(let i=0;i<files.length;i++){
 
 let reader=new FileReader()
 
@@ -337,7 +368,7 @@ reader.readAsDataURL(files[i])
 
 function download(){
 
-html2canvas(document.querySelector("#poster"),{scale:3}).then(canvas=>{
+html2canvas(document.querySelector("#poster"),{scale:4}).then(canvas=>{
 
 let link=document.createElement("a")
 
