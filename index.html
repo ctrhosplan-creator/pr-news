@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-
 <html lang="th">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ระบบสร้างจดหมายข่าว - โรงพยาบาลจัตุรัส</title>
+
+<title>จดหมายข่าวโรงพยาบาลจัตุรัส</title>
 
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
@@ -14,173 +14,155 @@ body{
 font-family:Tahoma;
 background:#eef2f6;
 margin:0;
-}
-
-.container{
-max-width:900px;
-margin:auto;
 padding:20px;
 }
 
-.card{
+.formbox{
+max-width:900px;
+margin:auto;
 background:white;
 padding:20px;
 border-radius:10px;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
 margin-bottom:20px;
-}
-
-h2{
-color:#1b5e20;
-margin-top:0;
 }
 
 input,textarea{
 width:100%;
 padding:10px;
-margin-top:8px;
+margin-top:5px;
 margin-bottom:15px;
 border:1px solid #ccc;
 border-radius:6px;
-font-size:14px;
 }
 
 button{
 background:#2e7d32;
 color:white;
 border:none;
-padding:12px 20px;
+padding:10px 18px;
 border-radius:6px;
 cursor:pointer;
-margin-right:10px;
 }
 
-button:hover{
-background:#1b5e20;
-}
-
-/* Template A4 */
-
-.preview{
-width:794px;
-min-height:1123px;
+.news{
+width:800px;
 background:white;
-padding:40px;
-border:1px solid #ccc;
 margin:auto;
+padding:20px;
 }
 
-.header{
+.banner{
+background:#f4f6ff;
+padding:15px;
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.banner img{
+height:70px;
+}
+
+.banner h1{
+margin:0;
+color:#3b2bb3;
+}
+
+.subtitle{
+color:#555;
+}
+
+.title{
 text-align:center;
-margin-bottom:20px;
+color:#2e7d32;
+font-size:26px;
+font-weight:bold;
+margin:20px 0;
 }
 
-.header img{
-height:90px;
+.meta{
+display:flex;
+justify-content:space-between;
+border-bottom:3px solid #2e7d32;
+padding-bottom:10px;
 margin-bottom:10px;
 }
 
-.header h1{
-margin:0;
-color:#1b5e20;
-}
-
-.header h2{
-margin:5px 0;
+.content{
+line-height:1.6;
 }
 
 .images{
 display:grid;
-grid-template-columns:repeat(3,1fr);
+grid-template-columns:repeat(2,1fr);
 gap:10px;
 margin-top:20px;
 }
 
 .images img{
 width:100%;
-height:150px;
-object-fit:cover;
 border-radius:6px;
 }
 
-.footer{
-margin-top:20px;
-font-weight:bold;
-}
-
-/* Mobile */
-
-@media(max-width:800px){
-
-.preview{
-width:100%;
-padding:20px;
-}
-
-.images img{
-height:120px;
-}
-
-}
-
 </style>
-
 </head>
 
 <body>
 
-<div class="container">
+<div class="formbox">
 
-<div class="card">
+<h3>กรอกข้อมูลข่าว</h3>
 
-<h2>📋 บันทึกข้อมูลกิจกรรม</h2>
+<label>หัวข้อข่าว</label>
+<input id="title">
 
-<label>วันที่จัดกิจกรรม</label> <input type="date" id="date">
+<label>วันที่</label>
+<input type="date" id="date">
 
-<label>ชื่อกิจกรรม</label> <input type="text" id="title">
+<label>หน่วยงาน</label>
+<input id="dept" placeholder="เช่น งานประชาสัมพันธ์">
 
-<label>สถานที่</label> <input type="text" id="location">
+<label>เนื้อข่าว</label>
+<textarea id="detail"></textarea>
 
-<label>หน่วยงาน (ข้อความสั้น)</label> <input type="text" id="dept" maxlength="50" placeholder="เช่น งานประชาสัมพันธ์">
+<label>รูปภาพ (สูงสุด 4 รูป)</label>
+<input type="file" id="images" multiple>
 
-<label>รายละเอียดกิจกรรม</label>
-
-<textarea id="detail" rows="4"></textarea>
-
-<label>รูปภาพกิจกรรม (สูงสุด 9 รูป)</label> <input type="file" id="images" multiple accept="image/*">
-
-<button onclick="generate()">สร้างจดหมายข่าว</button> <button onclick="download()">ดาวน์โหลด JPG</button>
+<button onclick="generate()">สร้างข่าว</button>
+<button onclick="download()">ดาวน์โหลด JPG</button>
 
 </div>
 
-<div id="news" class="preview">
 
-<div class="header">
+<div id="news" class="news">
+
+<div class="banner">
 
 <img src="moph.png">
 
-<h1>จดหมายข่าว</h1>
-
-<h2>โรงพยาบาลจัตุรัส</h2>
-<p>Chatturat Hospital</p>
+<div>
+<h1>จดหมายข่าวประชาสัมพันธ์</h1>
+<div class="subtitle">
+โรงพยาบาลจัตุรัส<br>
+Chatturat Hospital
+</div>
+</div>
 
 </div>
 
-<p><b>วันที่ :</b> <span id="showdate"></span></p>
+<div class="title" id="showtitle"></div>
 
-<h2 id="showtitle"></h2>
+<div class="meta">
 
-<p><b>สถานที่ :</b> <span id="showlocation"></span></p>
+<div>📅 วันที่ : <span id="showdate"></span></div>
 
-<p id="showdetail"></p>
+<div>👥 หน่วยงาน : <span id="showdept"></span></div>
+
+</div>
+
+<div class="content" id="showdetail"></div>
 
 <div class="images" id="showimages"></div>
-
-<div class="footer">
-หน่วยงาน : <span id="showdept"></span>
-</div>
-
-</div>
 
 </div>
 
@@ -188,29 +170,23 @@ height:120px;
 
 function generate(){
 
-showdate.innerText = date.value
 showtitle.innerText = title.value
-showlocation.innerText = location.value
-showdetail.innerText = detail.value
+showdate.innerText = date.value
 showdept.innerText = dept.value
+showdetail.innerText = detail.value
 
 let files = images.files
 
-if(files.length > 9){
-alert("อัปโหลดได้สูงสุด 9 รูป")
-return
-}
-
 showimages.innerHTML=""
 
-for(let i=0;i<files.length;i++){
+for(let i=0;i<files.length && i<4;i++){
 
 let reader = new FileReader()
 
-reader.onload = function(e){
+reader.onload=function(e){
 
-let img = document.createElement("img")
-img.src = e.target.result
+let img=document.createElement("img")
+img.src=e.target.result
 showimages.appendChild(img)
 
 }
@@ -226,7 +202,7 @@ function download(){
 html2canvas(document.querySelector("#news"),{scale:3}).then(canvas=>{
 
 let link=document.createElement("a")
-link.download="newsletter.jpg"
+link.download="news.jpg"
 link.href=canvas.toDataURL("image/jpeg")
 link.click()
 
