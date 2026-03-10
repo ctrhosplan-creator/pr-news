@@ -299,56 +299,23 @@ scale:4,
 useCORS:true
 }).then(canvas=>{
 
-let img = canvas.toDataURL("image/png")
+canvas.toBlob(function(blob){
 
-/* ตรวจสอบว่าเป็น LINE browser */
+let url = URL.createObjectURL(blob)
 
-let ua = navigator.userAgent.toLowerCase()
-let isLine = ua.includes("line")
+let link = document.createElement("a")
+link.href = url
+link.download = "poster.png"
 
-/* ถ้าเป็นมือถือ หรือ LINE */
-
-if(/Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || isLine){
-
-let newWindow = window.open("")
-newWindow.document.write(`
-<html>
-<head>
-<title>บันทึกรูป</title>
-<style>
-body{
-margin:0;
-background:black;
-display:flex;
-align-items:center;
-justify-content:center;
-}
-img{
-width:100%;
-height:auto;
-}
-</style>
-</head>
-<body>
-<img src="${img}">
-</body>
-</html>
-`)
-
-/* ผู้ใช้กดค้างที่รูปเพื่อบันทึก */
-
-}else{
-
-/* คอมพิวเตอร์ */
-
-let link=document.createElement("a")
-link.href=img
-link.download="ข่าวประชาสัมพันธ์.png"
 document.body.appendChild(link)
 link.click()
 document.body.removeChild(link)
 
-}
+setTimeout(()=>{
+URL.revokeObjectURL(url)
+},1000)
+
+})
 
 })
 
