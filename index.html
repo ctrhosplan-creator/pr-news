@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>PR Generator PRO</title>
+<title>ระบบสร้างข่าวประชาสัมพันธ์</title>
 
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
@@ -13,11 +13,12 @@
 
 body{
 font-family:Tahoma;
-background:#eef5f1;
+margin:0;
 padding:20px;
+background:#eef5f1;
 }
 
-/* FORM */
+/* ===== FORM ===== */
 
 .formbox{
 background:white;
@@ -25,11 +26,11 @@ max-width:900px;
 margin:auto;
 padding:20px;
 border-radius:10px;
-box-shadow:0 5px 15px rgba(0,0,0,.1);
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
 margin-bottom:20px;
 }
 
-input,textarea,select{
+input,textarea{
 width:100%;
 padding:10px;
 margin-bottom:15px;
@@ -45,9 +46,11 @@ border:none;
 padding:12px 18px;
 border-radius:6px;
 cursor:pointer;
+margin-right:10px;
+font-size:16px;
 }
 
-/* POSTER */
+/* ===== POSTER ===== */
 
 .poster{
 width:794px;
@@ -56,25 +59,24 @@ margin:auto;
 background:white;
 border-radius:10px;
 overflow:hidden;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
 position:relative;
-box-shadow:0 10px 30px rgba(0,0,0,.2);
-padding-bottom:80px;
+padding-bottom:70px;
 }
 
-/* HEADER */
+/* ===== HEADER ===== */
 
 .header{
-background:linear-gradient(120deg,#0f6d3d,#1fa463,#79d38a);
+background:linear-gradient(90deg,#1c7a45,#2ea85e,#7ac96d);
 color:white;
-padding:40px;
+padding:40px 30px;
 display:flex;
-gap:20px;
 align-items:center;
-position:relative;
+gap:20px;
 }
 
 .header img{
-height:80px;
+height:75px;
 }
 
 .header h1{
@@ -87,7 +89,7 @@ font-size:15px;
 opacity:.9;
 }
 
-/* TITLE */
+/* ===== TITLE ===== */
 
 .titlebar{
 background:#006c3c;
@@ -97,7 +99,7 @@ font-weight:bold;
 padding:10px 25px;
 }
 
-/* META */
+/* ===== META ===== */
 
 .meta{
 text-align:center;
@@ -110,39 +112,50 @@ font-size:20px;
 font-weight:bold;
 }
 
-/* CONTENT */
+#showdate{
+font-size:18px;
+margin-top:5px;
+}
+
+/* ===== CONTENT ===== */
 
 .content{
-padding:20px 30px;
+padding:10px 25px 20px 25px;
 font-size:18px;
+line-height:1.6;
 text-align:center;
 white-space:pre-line;
 }
 
-/* IMAGES */
+/* ===== IMAGES ===== */
 
 .images{
 display:grid;
-gap:10px;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:12px;
 padding:20px;
+justify-items:center;
 }
 
 .images img{
 width:100%;
-height:200px;
+height:180px;
 object-fit:cover;
 border-radius:6px;
 }
 
-/* FOOTER */
+/* ===== FOOTER ===== */
 
 .footer{
 background:linear-gradient(90deg,#006c3c,#0a8f55);
 color:white;
-text-align:center;
 padding:12px;
+text-align:center;
+font-size:15px;
+
 position:absolute;
 bottom:0;
+left:0;
 width:100%;
 }
 
@@ -153,25 +166,22 @@ width:100%;
 
 <div class="formbox">
 
-<h3>สร้างข่าวประชาสัมพันธ์</h3>
+<h3>กรอกข้อมูลข่าวประชาสัมพันธ์</h3>
 
 <label>หน่วยงาน</label>
-<input id="dept">
+<input type="text" id="dept">
 
 <label>วันที่กิจกรรม</label>
 <input type="date" id="date">
 
 <label>รายละเอียดข่าว</label>
-<textarea id="detail"></textarea>
+<textarea id="detail" rows="4"></textarea>
 
-<label>โลโก้หน่วยงาน</label>
-<input type="file" id="logo" accept="image/*">
-
-<label>รูปภาพกิจกรรม</label>
+<label>รูปภาพกิจกรรม (สูงสุด 9 รูป)</label>
 <input type="file" id="images" multiple accept="image/*">
 
 <button onclick="generate()">สร้างข่าว</button>
-<button onclick="download()">📥 บันทึกรูป</button>
+<button onclick="download()">📥 บันทึกรูปลงมือถือ</button>
 
 </div>
 
@@ -179,13 +189,16 @@ width:100%;
 
 <div class="header">
 
-<img id="showlogo" src="moph.png">
+<img src="moph.png">
 
 <div>
+
 <h1>โรงพยาบาลจัตุรัส จังหวัดชัยภูมิ</h1>
+
 <div class="subtitle">
 โรงพยาบาลชุมชนแม่ข่าย บริการมีคุณภาพ เครือข่ายมีส่วนร่วม เป็นองค์กรแห่งความสุข
 </div>
+
 </div>
 
 </div>
@@ -213,6 +226,8 @@ www.ctrhos.go.th | โทร 044-851499
 
 function formatThaiDate(dateStr){
 
+if(!dateStr) return ""
+
 const months=[
 "มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน",
 "กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"
@@ -220,7 +235,11 @@ const months=[
 
 let d=new Date(dateStr)
 
-return "วันที่ "+d.getDate()+" "+months[d.getMonth()]+" "+(d.getFullYear()+543)
+let day=d.getDate()
+let month=months[d.getMonth()]
+let year=d.getFullYear()+543
+
+return "วันที่ "+day+" "+month+" "+year
 
 }
 
@@ -230,30 +249,16 @@ showdept.innerText="หน่วยงาน : "+dept.value
 showdate.innerText=formatThaiDate(date.value)
 showdetail.innerText=detail.value
 
-/* โลโก้ */
-
-if(logo.files[0]){
-let r=new FileReader()
-r.onload=e=>showlogo.src=e.target.result
-r.readAsDataURL(logo.files[0])
-}
-
-/* รูปภาพ */
-
 let files=images.files
+
+if(files.length>9){
+alert("อัปโหลดได้ไม่เกิน 9 รูป")
+return
+}
 
 showimages.innerHTML=""
 
-let col=3
-
-if(files.length==1) col=1
-else if(files.length==2) col=2
-else if(files.length<=4) col=2
-else col=3
-
-showimages.style.gridTemplateColumns="repeat("+col+",1fr)"
-
-for(let i=0;i<files.length && i<9;i++){
+for(let i=0;i<files.length;i++){
 
 let reader=new FileReader()
 
@@ -274,11 +279,12 @@ reader.readAsDataURL(files[i])
 function download(){
 
 html2canvas(document.querySelector("#poster"),{
-scale:4
+scale:4,
+useCORS:true
 }).then(canvas=>{
 
 let link=document.createElement("a")
-link.download="PR.jpg"
+link.download="ข่าวประชาสัมพันธ์.jpg"
 link.href=canvas.toDataURL("image/jpeg",1)
 link.click()
 
