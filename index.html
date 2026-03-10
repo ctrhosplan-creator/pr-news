@@ -54,11 +54,14 @@ margin-right:10px;
 
 .poster{
 width:794px;
+min-height:1123px;
 margin:auto;
 background:white;
 border-radius:12px;
 overflow:hidden;
 box-shadow:0 10px 30px rgba(0,0,0,0.2);
+position:relative;
+padding-bottom:80px;
 }
 
 /* HEADER */
@@ -67,7 +70,7 @@ box-shadow:0 10px 30px rgba(0,0,0,0.2);
 position:relative;
 background:linear-gradient(120deg,#0a6b3c,#3bc277);
 color:white;
-padding:50px 40px;
+padding:45px 40px;
 display:flex;
 align-items:center;
 gap:20px;
@@ -96,16 +99,20 @@ bottom:-200px;
 left:-150px;
 }
 
-.header img{
-height:70px;
-z-index:1;
+.logo{
+height:75px;
+background:white;
+border-radius:50%;
+padding:6px;
+box-shadow:0 4px 12px rgba(0,0,0,0.25);
+z-index:2;
 }
 
-.headertext{
-z-index:1;
+.header-text{
+z-index:2;
 }
 
-.header h1{
+.header-text h1{
 margin:0;
 font-size:28px;
 }
@@ -174,19 +181,15 @@ box-shadow:0 4px 10px rgba(0,0,0,0.15);
 /* FOOTER */
 
 .footer{
+position:absolute;
+bottom:0;
+left:0;
+width:100%;
 background:linear-gradient(90deg,#0a6b3c,#1fa463);
 color:white;
-padding:12px 20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.facebook{
-background:#1877f2;
-padding:6px 14px;
-border-radius:20px;
-font-weight:bold;
+text-align:center;
+padding:12px;
+font-size:16px;
 }
 
 </style>
@@ -219,13 +222,16 @@ font-weight:bold;
 
 <div class="header">
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Seal_of_the_Ministry_of_Public_Health_of_Thailand.svg/512px-Seal_of_the_Ministry_of_Public_Health_of_Thailand.svg.png">
+<img src="moph.png" class="logo">
 
-<div class="headertext">
+<div class="header-text">
+
 <h1>โรงพยาบาลจัตุรัส จังหวัดชัยภูมิ</h1>
+
 <div class="subtitle">
 โรงพยาบาลชุมชนแม่ข่าย บริการมีคุณภาพ เครือข่ายมีส่วนร่วม เป็นองค์กรแห่งความสุข
 </div>
+
 </div>
 
 </div>
@@ -244,13 +250,7 @@ font-weight:bold;
 <div class="images" id="showimages"></div>
 
 <div class="footer">
-<div>
 www.ctrhos.go.th | โทร 044-851499
-</div>
-
-<div class="facebook">
-Facebook
-</div>
 </div>
 
 </div>
