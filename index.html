@@ -57,7 +57,7 @@ width:794px;
 min-height:1123px;
 margin:auto;
 background:white;
-border-radius:12px;
+border-radius:10px;
 overflow:hidden;
 box-shadow:0 10px 30px rgba(0,0,0,0.2);
 position:relative;
@@ -67,15 +67,17 @@ padding-bottom:80px;
 /* ===== HEADER GRAPHIC ===== */
 
 .header{
-background:linear-gradient(135deg,#0b6b3a,#1fa463,#86d79c);
+background:linear-gradient(135deg,#0b6b3a,#1fa463,#8bd7a3);
 color:white;
-padding:55px 40px;
+padding:55px 35px;
 display:flex;
 align-items:center;
 gap:25px;
 position:relative;
 overflow:hidden;
 }
+
+/* วงแสงด้านบน */
 
 .header::before{
 content:"";
@@ -88,22 +90,24 @@ background:rgba(255,255,255,0.18);
 border-radius:50%;
 }
 
+/* วงแสงด้านล่าง */
+
 .header::after{
 content:"";
 position:absolute;
-left:-160px;
-bottom:-140px;
-width:480px;
+left:-150px;
+bottom:-130px;
+width:450px;
 height:260px;
 background:rgba(255,255,255,0.08);
 border-radius:50%;
 }
 
-/* wave graphic */
+/* คลื่นกราฟฟิค */
 
 .wave{
 position:absolute;
-right:-120px;
+right:-100px;
 top:0;
 width:420px;
 height:100%;
@@ -111,21 +115,23 @@ background:linear-gradient(90deg,rgba(255,255,255,0.05),rgba(255,255,255,0.25));
 border-radius:70% 0 0 70%;
 }
 
-/* dot pattern */
+/* จุด pattern */
 
 .dots{
 position:absolute;
-right:40px;
+right:50px;
 top:20px;
 width:120px;
 height:120px;
-background-image:radial-gradient(rgba(255,255,255,0.5) 1px, transparent 1px);
+background-image:radial-gradient(rgba(255,255,255,0.6) 1px, transparent 1px);
 background-size:12px 12px;
 opacity:.4;
 }
 
+/* เนื้อหาอยู่ด้านหน้า */
+
 .header img,
-.header-text{
+.header div{
 position:relative;
 z-index:2;
 }
@@ -153,7 +159,7 @@ background:#006c3c;
 color:white;
 font-size:28px;
 font-weight:bold;
-padding:12px 25px;
+padding:10px 25px;
 }
 
 /* ===== META ===== */
@@ -177,9 +183,9 @@ margin-top:5px;
 /* ===== CONTENT ===== */
 
 .content{
-padding:10px 40px 20px 40px;
-font-size:19px;
-line-height:1.7;
+padding:10px 25px 20px 25px;
+font-size:18px;
+line-height:1.6;
 text-align:center;
 white-space:pre-line;
 }
@@ -196,7 +202,7 @@ padding:20px;
 width:100%;
 aspect-ratio:1/1;
 object-fit:cover;
-border-radius:10px;
+border-radius:8px;
 }
 
 /* ===== FOOTER ===== */
@@ -204,7 +210,7 @@ border-radius:10px;
 .footer{
 background:linear-gradient(90deg,#006c3c,#0a8f55);
 color:white;
-padding:14px;
+padding:12px;
 text-align:center;
 font-size:15px;
 position:absolute;
@@ -235,7 +241,7 @@ width:100%;
 <input type="file" id="images" multiple accept="image/*">
 
 <button onclick="generate()">สร้างข่าว</button>
-<button onclick="download()">📥 บันทึกรูป</button>
+<button onclick="download()">📥 บันทึกรูปลงมือถือ</button>
 
 </div>
 
@@ -248,7 +254,7 @@ width:100%;
 
 <img src="moph.png">
 
-<div class="header-text">
+<div>
 
 <h1>โรงพยาบาลจัตุรัส จังหวัดชัยภูมิ</h1>
 
@@ -352,6 +358,7 @@ useCORS:true
 let link=document.createElement("a")
 link.download="ข่าวประชาสัมพันธ์.jpg"
 link.href=canvas.toDataURL("image/jpeg",1)
+
 link.click()
 
 })
