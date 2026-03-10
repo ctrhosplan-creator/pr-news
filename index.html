@@ -14,121 +14,164 @@ body{
 font-family:Tahoma;
 margin:0;
 padding:20px;
-background:#eef2f8;
+background:#eef5f1;
 }
 
-/* ฟอร์ม */
+/* ===== FORM ===== */
 
 .formbox{
 background:white;
+max-width:900px;
+margin:auto;
 padding:20px;
-border-radius:8px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
 margin-bottom:20px;
-box-shadow:0 2px 8px rgba(0,0,0,0.1);
 }
 
 input,textarea{
 width:100%;
-padding:8px;
-margin-bottom:10px;
+padding:10px;
+margin-bottom:15px;
+border:1px solid #ccc;
+border-radius:6px;
+font-size:16px;
 }
 
 button{
-padding:10px 20px;
-border:none;
-background:#0a7a43;
+background:#0a8f55;
 color:white;
-border-radius:5px;
+border:none;
+padding:12px 18px;
+border-radius:6px;
 cursor:pointer;
 margin-right:10px;
+font-size:16px;
 }
 
-/* โปสเตอร์ */
+/* ===== POSTER ===== */
 
 .poster{
 width:794px;
-height:1123px;
+min-height:1123px;
 margin:auto;
-background-image:url('bg.jpg');
+
+background-image:url("bg.jpg");
 background-size:cover;
 background-position:center;
+
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
 position:relative;
-box-shadow:0 5px 20px rgba(0,0,0,0.2);
 }
 
-/* header */
+/* ===== HEADER ===== */
 
 .header{
-position:absolute;
-top:60px;
-left:80px;
+background:linear-gradient(90deg,#1c7a45,#2ea85e,#7ac96d);
+color:white;
+padding:40px 30px;
 display:flex;
 align-items:center;
+gap:20px;
 }
 
-.logo{
-width:100px;
-margin-right:15px;
+.header img{
+height:75px;
+background:white;
+border-radius:50%;
+padding:5px;
 }
 
-/* เนื้อหา */
-
-.content{
-position:absolute;
-top:260px;
-left:120px;
-right:120px;
-text-align:center;
-color:#0b5e34;
+.header h1{
+margin:0;
+font-size:28px;
 }
 
-.topic{
+.subtitle{
+font-size:15px;
+opacity:.9;
+}
+
+/* ===== TITLE ===== */
+
+.titlebar{
+background:#006c3c;
+color:white;
 font-size:28px;
 font-weight:bold;
-margin-bottom:10px;
+padding:10px 25px;
 }
 
-.date{
-font-size:20px;
-margin-bottom:20px;
-}
+/* ===== META ===== */
 
-.detail{
-font-size:20px;
-line-height:1.8;
-background:rgba(255,255,255,0.6);
-padding:20px;
+.meta{
+text-align:center;
+padding:12px;
+
+background:rgba(255,255,255,0.85);
+margin:12px 25px;
+
 border-radius:12px;
+
+color:#006c3c;
 }
 
-/* รูปภาพ */
+#showdept{
+font-size:20px;
+font-weight:bold;
+}
 
-.gallery{
-position:absolute;
-top:520px;
-left:120px;
-right:120px;
+#showdate{
+font-size:18px;
+margin-top:5px;
+}
 
+/* ===== CONTENT ===== */
+
+.content{
+padding:20px 35px;
+font-size:18px;
+line-height:1.7;
+text-align:center;
+white-space:pre-line;
+
+background:rgba(255,255,255,0.85);
+margin:12px 25px;
+
+border-radius:12px;
+
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* ===== IMAGES ===== */
+
+.images{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:10px;
+gap:12px;
+padding:20px 25px;
 }
 
-.gallery img{
+.images img{
 width:100%;
-height:150px;
+height:180px;
 object-fit:cover;
 border-radius:8px;
+
+box-shadow:0 3px 8px rgba(0,0,0,0.15);
 }
 
-/* footer */
+/* ===== FOOTER ===== */
 
 .footer{
-position:absolute;
-bottom:25px;
-left:50px;
-font-size:14px;
-color:#0a5d35;
+background:linear-gradient(90deg,#006c3c,#0a8f55);
+color:white;
+padding:12px;
+text-align:center;
+font-size:15px;
+margin-top:10px;
 }
 
 </style>
@@ -136,45 +179,61 @@ color:#0a5d35;
 
 <body>
 
+<!-- ===== FORM ===== -->
+
 <div class="formbox">
 
 <h3>กรอกข้อมูลข่าวประชาสัมพันธ์</h3>
 
-หน่วยงาน
-<input id="dept">
+<label>หน่วยงาน</label>
+<input type="text" id="dept">
 
-วันที่
-<input id="date">
+<label>วันที่กิจกรรม</label>
+<input type="date" id="date">
 
-รายละเอียด
-<textarea id="detail"></textarea>
+<label>รายละเอียดข่าว</label>
+<textarea id="detail" rows="4"></textarea>
 
-อัปโหลดรูปกิจกรรม
-<input type="file" id="images" multiple>
-
-<br><br>
+<label>รูปภาพกิจกรรม (สูงสุด 9 รูป)</label>
+<input type="file" id="images" multiple accept="image/*">
 
 <button onclick="generate()">สร้างข่าว</button>
-<button onclick="saveImage()">บันทึกรูป</button>
+<button onclick="download()">📥 บันทึกรูปลงมือถือ</button>
 
 </div>
 
+<!-- ===== POSTER ===== -->
 
 <div id="poster" class="poster">
 
 <div class="header">
-<img src="moph.png" class="logo">
+
+<img src="moph.png">
+
+<div>
+
+<h1>โรงพยาบาลจัตุรัส จังหวัดชัยภูมิ</h1>
+
+<div class="subtitle">
+โรงพยาบาลชุมชนแม่ข่าย บริการมีคุณภาพ เครือข่ายมีส่วนร่วม เป็นองค์กรแห่งความสุข
 </div>
 
-<div class="content">
-
-<div id="showDept" class="topic"></div>
-<div id="showDate" class="date"></div>
-<div id="showDetail" class="detail"></div>
+</div>
 
 </div>
 
-<div id="gallery" class="gallery"></div>
+<div class="titlebar">
+ข่าวประชาสัมพันธ์
+</div>
+
+<div class="meta">
+<div id="showdept"></div>
+<div id="showdate"></div>
+</div>
+
+<div class="content" id="showdetail"></div>
+
+<div class="images" id="showimages"></div>
 
 <div class="footer">
 www.ctrhos.go.th | โทร 044-851499
@@ -182,35 +241,54 @@ www.ctrhos.go.th | โทร 044-851499
 
 </div>
 
+<!-- ===== SCRIPT ===== -->
 
 <script>
 
+function formatThaiDate(dateStr){
+
+if(!dateStr) return ""
+
+const months=[
+"มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน",
+"กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"
+]
+
+let d=new Date(dateStr)
+
+let day=d.getDate()
+let month=months[d.getMonth()]
+let year=d.getFullYear()+543
+
+return "วันที่ "+day+" "+month+" "+year
+
+}
+
 function generate(){
 
-document.getElementById("showDept").innerText =
-"หน่วยงาน : " + document.getElementById("dept").value
+showdept.innerText="หน่วยงาน : "+dept.value
+showdate.innerText=formatThaiDate(date.value)
+showdetail.innerText=detail.value
 
-document.getElementById("showDate").innerText =
-"วันที่ " + document.getElementById("date").value
+let files=images.files
 
-document.getElementById("showDetail").innerText =
-document.getElementById("detail").value
+if(files.length>9){
+alert("อัปโหลดได้ไม่เกิน 9 รูป")
+return
+}
 
-
-const gallery=document.getElementById("gallery")
-gallery.innerHTML=""
-
-const files=document.getElementById("images").files
+showimages.innerHTML=""
 
 for(let i=0;i<files.length;i++){
 
-const reader=new FileReader()
+let reader=new FileReader()
 
 reader.onload=function(e){
 
 let img=document.createElement("img")
 img.src=e.target.result
-gallery.appendChild(img)
+
+showimages.appendChild(img)
 
 }
 
@@ -220,14 +298,16 @@ reader.readAsDataURL(files[i])
 
 }
 
+function download(){
 
-function saveImage(){
-
-html2canvas(document.querySelector("#poster")).then(canvas=>{
+html2canvas(document.querySelector("#poster"),{
+scale:4
+}).then(canvas=>{
 
 let link=document.createElement("a")
-link.download="pr-news.png"
-link.href=canvas.toDataURL()
+link.download="ข่าวประชาสัมพันธ์.jpg"
+link.href=canvas.toDataURL("image/jpeg",1)
+
 link.click()
 
 })
