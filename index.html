@@ -4,7 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>ระบบสร้างข่าวประชาสัมพันธ์</title>
 
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -60,14 +59,14 @@ overflow:hidden;
 background:white;
 }
 
-/* background image */
+/* พื้นหลัง */
 
 .bg{
 position:absolute;
-top:0;
-left:0;
 width:100%;
 height:100%;
+top:0;
+left:0;
 object-fit:cover;
 z-index:0;
 }
@@ -109,15 +108,13 @@ right:80px;
 z-index:2;
 }
 
-/* รายละเอียดข่าว */
+/* รายละเอียด */
 
 .detail{
 font-size:18px;
 line-height:1.9;
-margin-top:13px;
 margin-bottom:25px;
 text-align:justify;
-word-break:break-word;
 }
 
 .detail p{
@@ -139,8 +136,6 @@ object-fit:cover;
 border-radius:8px;
 }
 
-/* รูปเดียว */
-
 .images.single img{
 height:420px;
 aspect-ratio:1/1;
@@ -157,7 +152,6 @@ text-align:center;
 font-size:10px;
 font-weight:bold;
 color:black;
-text-shadow:0 2px 5px rgba(0,0,0,0.5);
 z-index:2;
 }
 
@@ -183,7 +177,7 @@ z-index:2;
 <input type="file" id="images" multiple accept="image/*">
 
 <button onclick="generate()">สร้างข่าว</button>
-<button onclick="download()">📥 บันทึกรูป</button>
+<button onclick="download()">📥 บันทึกโปสเตอร์</button>
 
 </div>
 
@@ -232,11 +226,7 @@ const months=[
 
 let d=new Date(dateStr)
 
-let day=d.getDate()
-let month=months[d.getMonth()]
-let year=d.getFullYear()+543
-
-return "วันที่ "+day+" "+month+" "+year
+return "วันที่ "+d.getDate()+" "+months[d.getMonth()]+" "+(d.getFullYear()+543)
 
 }
 
@@ -256,10 +246,9 @@ return
 }
 
 showimages.innerHTML=""
+showimages.classList.remove("single")
 
 let count=files.length
-
-showimages.classList.remove("single")
 
 if(count==1){
 showimages.style.gridTemplateColumns="1fr"
@@ -296,9 +285,26 @@ reader.readAsDataURL(files[i])
 
 }
 
-function download(){
+/* รอให้รูปโหลดก่อนแคป */
 
-const poster=document.querySelector("#poster")
+function waitImagesLoad(container){
+
+const imgs=container.querySelectorAll("img")
+
+return Promise.all([...imgs].map(img=>{
+if(img.complete) return Promise.resolve()
+return new Promise(resolve=>{img.onload=img.onerror=resolve})
+}))
+
+}
+
+/* DOWNLOAD */
+
+async function download(){
+
+const poster=document.getElementById("poster")
+
+await waitImagesLoad(poster)
 
 html2canvas(poster,{
 scale:3,
@@ -307,40 +313,13 @@ useCORS:true
 
 let img=canvas.toDataURL("image/jpeg",1)
 
-let isMobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
-
-if(isMobile){
-
-let newTab=window.open("_blank")
-
-newTab.document.write(`
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body{margin:0;background:black;text-align:center;}
-img{width:100%;height:auto;}
-p{color:white;font-size:18px;padding:10px;font-family:Tahoma;}
-</style>
-</head>
-<body>
-<p>กดค้างที่รูปเพื่อบันทึกโปสเตอร์</p>
-<img src="${img}">
-</body>
-</html>
-`)
-
-}else{
-
 let link=document.createElement("a")
 link.href=img
-link.download="ข่าวประชาสัมพันธ์.jpg"
+link.download="poster-news.jpg"
 
 document.body.appendChild(link)
 link.click()
 document.body.removeChild(link)
-
-}
 
 })
 
