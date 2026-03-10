@@ -291,7 +291,6 @@ reader.readAsDataURL(files[i])
 }
 
 /* DOWNLOAD รองรับมือถือ */
-
 function download(){
 
 html2canvas(document.querySelector("#poster"),{
@@ -299,26 +298,44 @@ scale:4,
 useCORS:true
 }).then(canvas=>{
 
-canvas.toBlob(function(blob){
+let img = canvas.toDataURL("image/png")
 
-let url = URL.createObjectURL(blob)
+let w = window.open("")
 
-let link = document.createElement("a")
-link.href = url
-link.download = "poster.png"
+w.document.write(`
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{
+margin:0;
+background:#000;
+text-align:center;
+font-family:tahoma;
+}
+img{
+width:100%;
+height:auto;
+}
+p{
+color:white;
+font-size:18px;
+padding:15px;
+}
+</style>
+</head>
 
-document.body.appendChild(link)
-link.click()
-document.body.removeChild(link)
+<body>
 
-setTimeout(()=>{
-URL.revokeObjectURL(url)
-},1000)
+<p>กดค้างที่รูปเพื่อบันทึก</p>
+
+<img src="${img}">
+
+</body>
+</html>
+`)
 
 })
-
-})
-
 }
 
 </script>
