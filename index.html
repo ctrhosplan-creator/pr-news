@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>ระบบสร้างข่าวประชาสัมพันธ์</title>
 
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -15,7 +16,7 @@ background:#eef2f1;
 padding:20px;
 }
 
-/* ===== FORM ===== */
+/* FORM */
 
 .formbox{
 background:white;
@@ -46,7 +47,7 @@ cursor:pointer;
 margin-right:10px;
 }
 
-/* ===== POSTER ===== */
+/* POSTER */
 
 .poster{
 
@@ -65,33 +66,13 @@ overflow:hidden;
 
 }
 
-/* ===== DATE ON GREEN BAR ===== */
-
-.newsdate{
-
-position:absolute;
-
-top:235px;
-left:50%;
-
-transform:translateX(-50%);
-
-font-size:26px;
-font-weight:bold;
-
-color:white;
-
-text-shadow:0 3px 6px rgba(0,0,0,0.4);
-
-}
-
-/* ===== CONTENT ===== */
+/* CONTENT */
 
 .content{
 
 position:absolute;
 
-top:320px;
+top:340px;
 left:80px;
 right:80px;
 
@@ -99,35 +80,53 @@ text-align:center;
 
 }
 
-/* ===== TEXT ===== */
+/* TEXT */
 
 .dept{
+
 font-size:26px;
 font-weight:bold;
 color:#0b6b3a;
-margin-bottom:10px;
+margin-bottom:8px;
+
+}
+
+.date{
+
+font-size:22px;
+color:#0b6b3a;
+margin-bottom:20px;
+
 }
 
 .detail{
+
 font-size:19px;
 line-height:1.6;
 white-space:pre-line;
 margin-bottom:30px;
+
 }
 
-/* ===== IMAGES ===== */
+/* IMAGES */
 
 .images{
+
 display:grid;
 grid-template-columns:repeat(3,1fr);
 gap:12px;
+
 }
 
 .images img{
+
 width:100%;
 height:160px;
+
 object-fit:cover;
+
 border-radius:8px;
+
 }
 
 </style>
@@ -159,11 +158,10 @@ border-radius:8px;
 
 <div id="poster" class="poster">
 
-<div class="newsdate" id="showdate"></div>
-
 <div class="content">
 
 <div class="dept" id="showdept"></div>
+<div class="date" id="showdate"></div>
 
 <div class="detail" id="showdetail"></div>
 
