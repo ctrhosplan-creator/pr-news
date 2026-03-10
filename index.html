@@ -229,7 +229,7 @@ function generate(){
 showdept.innerText="หน่วยงาน : "+dept.value
 showdate.innerText=formatThaiDate(date.value)
 
-showdetail.innerHTML = "<p>" + detail.value + "</p>"
+showdetail.innerHTML="<p>"+detail.value+"</p>"
 
 let files=images.files
 
@@ -240,7 +240,7 @@ return
 
 showimages.innerHTML=""
 
-let count = files.length
+let count=files.length
 
 showimages.classList.remove("single")
 
@@ -288,13 +288,54 @@ scale:4,
 useCORS:true
 }).then(canvas=>{
 
-let img = canvas.toDataURL("image/png")
+let img=canvas.toDataURL("image/png")
 
-let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+let isMobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
 
 if(isMobile){
 
-window.open(img,"_blank")
+let w=window.open("")
+
+w.document.open()
+w.document.write(`
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>บันทึกโปสเตอร์</title>
+
+<style>
+body{
+margin:0;
+background:#000;
+text-align:center;
+font-family:tahoma;
+}
+
+img{
+width:100%;
+height:auto;
+}
+
+p{
+color:white;
+font-size:18px;
+padding:15px;
+}
+</style>
+
+</head>
+
+<body>
+
+<p>กดค้างที่โปสเตอร์เพื่อบันทึกรูป</p>
+
+<img src="${img}">
+
+</body>
+</html>
+`)
+w.document.close()
 
 }else{
 
