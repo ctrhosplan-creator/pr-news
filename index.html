@@ -59,22 +59,50 @@ background:white;
 border-radius:12px;
 overflow:hidden;
 box-shadow:0 10px 30px rgba(0,0,0,0.2);
-position:relative;
 }
 
 /* HEADER */
 
 .header{
-background:linear-gradient(120deg,#0a6b3c,#38b26f);
+position:relative;
+background:linear-gradient(120deg,#0a6b3c,#3bc277);
 color:white;
-padding:40px;
+padding:50px 40px;
 display:flex;
 align-items:center;
 gap:20px;
+overflow:hidden;
+}
+
+.header::before{
+content:"";
+position:absolute;
+width:500px;
+height:500px;
+background:rgba(255,255,255,0.15);
+border-radius:50%;
+top:-200px;
+right:-150px;
+}
+
+.header::after{
+content:"";
+position:absolute;
+width:400px;
+height:400px;
+background:rgba(255,255,255,0.1);
+border-radius:50%;
+bottom:-200px;
+left:-150px;
 }
 
 .header img{
 height:70px;
+z-index:1;
+}
+
+.headertext{
+z-index:1;
 }
 
 .header h1{
@@ -84,7 +112,7 @@ font-size:28px;
 
 .subtitle{
 font-size:14px;
-opacity:.9;
+opacity:.95;
 }
 
 /* TITLE */
@@ -129,15 +157,18 @@ white-space:pre-line;
 .images{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:12px;
-padding:20px;
+gap:15px;
+padding:25px;
 }
 
 .images img{
 width:100%;
 aspect-ratio:1/1;
 object-fit:cover;
-border-radius:10px;
+border-radius:12px;
+background:white;
+padding:6px;
+box-shadow:0 4px 10px rgba(0,0,0,0.15);
 }
 
 /* FOOTER */
@@ -190,14 +221,11 @@ font-weight:bold;
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Seal_of_the_Ministry_of_Public_Health_of_Thailand.svg/512px-Seal_of_the_Ministry_of_Public_Health_of_Thailand.svg.png">
 
-<div>
-
+<div class="headertext">
 <h1>โรงพยาบาลจัตุรัส จังหวัดชัยภูมิ</h1>
-
 <div class="subtitle">
 โรงพยาบาลชุมชนแม่ข่าย บริการมีคุณภาพ เครือข่ายมีส่วนร่วม เป็นองค์กรแห่งความสุข
 </div>
-
 </div>
 
 </div>
@@ -207,10 +235,8 @@ font-weight:bold;
 </div>
 
 <div class="meta">
-
 <div id="showdept"></div>
 <div id="showdate"></div>
-
 </div>
 
 <div class="content" id="showdetail"></div>
@@ -218,7 +244,6 @@ font-weight:bold;
 <div class="images" id="showimages"></div>
 
 <div class="footer">
-
 <div>
 www.ctrhos.go.th | โทร 044-851499
 </div>
@@ -226,7 +251,6 @@ www.ctrhos.go.th | โทร 044-851499
 <div class="facebook">
 Facebook
 </div>
-
 </div>
 
 </div>
