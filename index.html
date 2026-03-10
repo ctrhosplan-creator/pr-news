@@ -100,7 +100,7 @@ transform:translateX(-50%);
 font-size:25px;
 font-weight:bold;
 
-color:black;   /* เปลี่ยนเป็นสีดำ */
+color:black;
 
 }
 
@@ -110,7 +110,7 @@ color:black;   /* เปลี่ยนเป็นสีดำ */
 
 position:absolute;
 
-top:270px;   /* เลื่อนขึ้น */
+top:260px;   /* เลื่อนขึ้นเล็กน้อย */
 
 left:80px;
 right:80px;
@@ -128,7 +128,9 @@ line-height:1.7;
 
 white-space:pre-line;
 
-margin-bottom:30px;
+margin-bottom:25px;
+
+text-align:justify;
 
 }
 
@@ -198,6 +200,17 @@ border-radius:8px;
 
 
 <script>
+
+const dept=document.getElementById("dept")
+const date=document.getElementById("date")
+const detail=document.getElementById("detail")
+const images=document.getElementById("images")
+
+const showdept=document.getElementById("showdept")
+const showdate=document.getElementById("showdate")
+const showdetail=document.getElementById("showdetail")
+const showimages=document.getElementById("showimages")
+
 
 function formatThaiDate(dateStr){
 
