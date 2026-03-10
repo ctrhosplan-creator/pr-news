@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -110,7 +111,7 @@ margin:0 0 12px 0;
 text-indent:50px;
 }
 
-/* รูป */
+/* รูปภาพ */
 
 .images{
 display:grid;
@@ -124,6 +125,13 @@ object-fit:cover;
 border-radius:8px;
 }
 
+/* ถ้ามีรูปเดียว */
+
+.images.single img{
+height:420px;
+aspect-ratio:1/1;
+}
+
 /* FOOTER */
 
 .footer{
@@ -132,9 +140,9 @@ bottom:35px;
 left:0;
 right:0;
 text-align:center;
-font-size:15px;
+font-size:18px;
 font-weight:bold;
-color:white;
+color:black;
 text-shadow:0 2px 5px rgba(0,0,0,0.5);
 }
 
@@ -164,7 +172,6 @@ text-shadow:0 2px 5px rgba(0,0,0,0.5);
 
 </div>
 
-
 <div id="poster" class="poster">
 
 <div class="newsdate" id="showdate"></div>
@@ -184,7 +191,6 @@ Website : www.ctr.go.th | Tel. 044851499
 </div>
 
 </div>
-
 
 <script>
 
@@ -241,12 +247,15 @@ return
 
 showimages.innerHTML=""
 
-/* จัด layout รูป */
+/* จัด Layout รูป */
 
 let count = files.length
 
+showimages.classList.remove("single")
+
 if(count==1){
 showimages.style.gridTemplateColumns="1fr"
+showimages.classList.add("single")
 }
 else if(count==2){
 showimages.style.gridTemplateColumns="1fr 1fr"
@@ -281,7 +290,6 @@ reader.readAsDataURL(files[i])
 }
 
 }
-
 
 /* DOWNLOAD รองรับมือถือ */
 
@@ -321,3 +329,4 @@ document.body.removeChild(link)
 
 </body>
 </html>
+```
