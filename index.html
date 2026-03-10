@@ -236,7 +236,15 @@ function generate(){
 
 showdept.innerText="หน่วยงาน : "+dept.value
 showdate.innerText=formatThaiDate(date.value)
-showdetail.innerText=detail.value
+let paragraphs = detail.value.split("\n");
+
+showdetail.innerHTML = "";
+
+paragraphs.forEach(p => {
+if(p.trim() !== ""){
+showdetail.innerHTML += "<p>"+p+"</p>";
+}
+});
 
 let files=images.files
 
