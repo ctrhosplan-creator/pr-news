@@ -59,32 +59,77 @@ background:white;
 border-radius:10px;
 overflow:hidden;
 box-shadow:0 10px 30px rgba(0,0,0,0.2);
-position:relative;
 }
 
 /* ===== HEADER ===== */
 
 .header{
-background:linear-gradient(90deg,#1c7a45,#2ea85e,#7ac96d);
+background:linear-gradient(120deg,#0f6d3d,#1fa463,#79d38a);
 color:white;
-padding:40px 30px;
+padding:45px 35px;
 display:flex;
 align-items:center;
-gap:20px;
+gap:25px;
+position:relative;
+overflow:hidden;
+}
+
+/* วงกลม */
+
+.header::before{
+content:"";
+position:absolute;
+right:-120px;
+top:-90px;
+width:500px;
+height:260px;
+background:rgba(255,255,255,0.15);
+border-radius:50%;
+}
+
+.header::after{
+content:"";
+position:absolute;
+left:-140px;
+bottom:-120px;
+width:420px;
+height:220px;
+background:rgba(255,255,255,0.08);
+border-radius:50%;
+}
+
+/* ลายจุด */
+
+.dots{
+position:absolute;
+right:60px;
+top:40px;
+width:160px;
+height:90px;
+background-image:radial-gradient(rgba(255,255,255,0.7) 2px, transparent 2px);
+background-size:18px 18px;
+opacity:.6;
 }
 
 .header img{
-height:75px;
+height:80px;
+z-index:2;
+}
+
+.header-text{
+z-index:2;
 }
 
 .header h1{
 margin:0;
-font-size:28px;
+font-size:30px;
 }
 
 .subtitle{
 font-size:15px;
-opacity:.9;
+opacity:.95;
+margin-top:5px;
+max-width:500px;
 }
 
 /* ===== TITLE ===== */
@@ -132,7 +177,6 @@ display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:12px;
 padding:20px;
-justify-items:center;
 }
 
 .images img{
@@ -157,8 +201,6 @@ font-size:15px;
 
 <body>
 
-<!-- ===== FORM ===== -->
-
 <div class="formbox">
 
 <h3>กรอกข้อมูลข่าวประชาสัมพันธ์</h3>
@@ -180,15 +222,15 @@ font-size:15px;
 
 </div>
 
-<!-- ===== POSTER ===== -->
-
 <div id="poster" class="poster">
 
 <div class="header">
 
+<div class="dots"></div>
+
 <img src="moph.png">
 
-<div>
+<div class="header-text">
 
 <h1>โรงพยาบาลจัตุรัส จังหวัดชัยภูมิ</h1>
 
@@ -218,8 +260,6 @@ www.ctrhos.go.th | โทร 044-851499
 </div>
 
 </div>
-
-<!-- ===== SCRIPT ===== -->
 
 <script>
 
@@ -279,14 +319,21 @@ reader.readAsDataURL(files[i])
 function download(){
 
 html2canvas(document.querySelector("#poster"),{
-scale:4
+scale:4,
+useCORS:true
 }).then(canvas=>{
 
-let link=document.createElement("a")
-link.download="ข่าวประชาสัมพันธ์.jpg"
-link.href=canvas.toDataURL("image/jpeg",1)
+canvas.toBlob(function(blob){
 
+let link=document.createElement("a")
+link.href=URL.createObjectURL(blob)
+link.download="ข่าวประชาสัมพันธ์.jpg"
+
+document.body.appendChild(link)
 link.click()
+document.body.removeChild(link)
+
+})
 
 })
 
