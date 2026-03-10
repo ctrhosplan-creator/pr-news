@@ -61,40 +61,20 @@ background-size:cover;
 
 position:relative;
 
-border-radius:10px;
+border-radius:12px;
 overflow:hidden;
 
 }
 
-/* DATE ON GREEN BAR */
-
-.newsdate{
-
-position:absolute;
-
-top:235px;
-left:50%;
-
-transform:translateX(-50%);
-
-font-size:26px;
-font-weight:bold;
-
-color:white;
-
-text-shadow:0 2px 4px rgba(0,0,0,0.3);
-
-}
-
-/* CONTENT AREA */
+/* CONTENT */
 
 .content{
 
 position:absolute;
 
-top:320px;
-left:70px;
-right:70px;
+top:340px;
+left:80px;
+right:80px;
 
 text-align:center;
 
@@ -107,18 +87,23 @@ text-align:center;
 font-size:26px;
 font-weight:bold;
 color:#0b6b3a;
+margin-bottom:8px;
 
-margin-bottom:10px;
+}
+
+.date{
+
+font-size:22px;
+color:#0b6b3a;
+margin-bottom:20px;
 
 }
 
 .detail{
 
-font-size:20px;
+font-size:19px;
 line-height:1.6;
-
 white-space:pre-line;
-
 margin-bottom:30px;
 
 }
@@ -129,7 +114,7 @@ margin-bottom:30px;
 
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:10px;
+gap:12px;
 
 }
 
@@ -140,7 +125,7 @@ height:160px;
 
 object-fit:cover;
 
-border-radius:6px;
+border-radius:8px;
 
 }
 
@@ -160,7 +145,7 @@ border-radius:6px;
 <input type="date" id="date">
 
 <label>รายละเอียดข่าว</label>
-<textarea id="detail" rows="4"></textarea>
+<textarea id="detail" rows="5"></textarea>
 
 <label>รูปภาพกิจกรรม (สูงสุด 9 รูป)</label>
 <input type="file" id="images" multiple accept="image/*">
@@ -173,11 +158,10 @@ border-radius:6px;
 
 <div id="poster" class="poster">
 
-<div class="newsdate" id="showdate"></div>
-
 <div class="content">
 
 <div class="dept" id="showdept"></div>
+<div class="date" id="showdate"></div>
 
 <div class="detail" id="showdetail"></div>
 
