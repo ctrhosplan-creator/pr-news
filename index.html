@@ -50,88 +50,60 @@ margin-right:10px;
 /* POSTER */
 
 .poster{
-
 width:794px;
 height:1123px;
-
 margin:auto;
-
 background:url("bg.png") no-repeat center;
 background-size:cover;
-
 position:relative;
-
 border-radius:12px;
 overflow:hidden;
-
 }
 
 /* วันที่ */
 
 .newsdate{
-
 position:absolute;
-
 top:163px;
 left:55%;
-
 transform:translateX(-50%);
-
 font-size:34px;
 font-weight:bold;
-
 color:white;
-
 text-shadow:0 2px 5px rgba(0,0,0,0.4);
-
 }
 
 /* หน่วยงาน */
 
 .dept{
-
 position:absolute;
-
 top:235px;
 left:50%;
-
 transform:translateX(-50%);
-
 font-size:25px;
 font-weight:bold;
-
 color:black;
-
 }
 
 /* เนื้อข่าว */
 
 .content{
-
 position:absolute;
-
 top:275px;
-
 left:80px;
 right:80px;
-
 text-align:center;
-
 }
 
 /* รายละเอียด */
 
 .detail{
-
 font-size:18px;
 line-height:1.9;
-
 margin-top:13px;
 margin-bottom:25px;
-
 text-align:justify;
 word-break:break-word;
-
 }
 
 .detail p{
@@ -142,21 +114,35 @@ text-indent:50px;
 /* รูป */
 
 .images{
-
 display:grid;
 grid-template-columns:repeat(3,1fr);
 gap:12px;
-
 }
 
 .images img{
-
 width:100%;
 height:160px;
-
 object-fit:cover;
-
 border-radius:8px;
+}
+
+/* FOOTER */
+
+.footer{
+
+position:absolute;
+bottom:35px;
+left:0;
+right:0;
+
+text-align:center;
+
+font-size:18px;
+font-weight:bold;
+
+color:white;
+
+text-shadow:0 2px 5px rgba(0,0,0,0.5);
 
 }
 
@@ -201,6 +187,10 @@ border-radius:8px;
 
 </div>
 
+<div class="footer">
+Website : www.ctr.go.th | Tel. 044851499
+</div>
+
 </div>
 
 
@@ -215,7 +205,6 @@ const showdept=document.getElementById("showdept")
 const showdate=document.getElementById("showdate")
 const showdetail=document.getElementById("showdetail")
 const showimages=document.getElementById("showimages")
-
 
 function formatThaiDate(dateStr){
 
@@ -236,13 +225,12 @@ return "วันที่ "+day+" "+month+" "+year
 
 }
 
-
 function generate(){
 
 showdept.innerText="หน่วยงาน : "+dept.value
 showdate.innerText=formatThaiDate(date.value)
 
-let paragraphs = detail.value.split("\n");
+let paragraphs = detail.value.split("\n")
 
 showdetail.innerHTML=""
 
@@ -284,37 +272,33 @@ reader.readAsDataURL(files[i])
 
 function download(){
 
-let win = window.open("");   // เปิดแท็บก่อน (Safari จะไม่บล็อก)
-
 html2canvas(document.querySelector("#poster"),{
 scale:4
 }).then(canvas=>{
 
-let img = canvas.toDataURL("image/jpeg",1);
+let img = canvas.toDataURL("image/jpeg",1)
 
 if(/iPhone|iPad|iPod/i.test(navigator.userAgent)){
-    
-    // iPhone / Safari
-    win.document.write(
-        '<html><head><title>บันทึกรูป</title></head><body style="margin:0;text-align:center;background:#000;">' +
-        '<p style="color:white;font-family:sans-serif">กดค้างที่รูป แล้วเลือก "บันทึกรูปภาพ"</p>' +
-        '<img src="'+img+'" style="width:100%;max-width:100%">' +
-        '</body></html>'
-    );
+
+let newTab = document.createElement("a")
+newTab.href = img
+newTab.target = "_blank"
+document.body.appendChild(newTab)
+newTab.click()
+document.body.removeChild(newTab)
 
 }else{
 
-    // Android / คอมพิวเตอร์
-    let link=document.createElement("a");
-    link.href=img;
-    link.download="ข่าวประชาสัมพันธ์.jpg";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+let link = document.createElement("a")
+link.href = img
+link.download = "ข่าวประชาสัมพันธ์.jpg"
+document.body.appendChild(link)
+link.click()
+document.body.removeChild(link)
 
 }
 
-});
+})
 
 }
 
