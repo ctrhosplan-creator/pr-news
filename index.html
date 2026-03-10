@@ -95,19 +95,24 @@ left:80px;
 right:80px;
 }
 
-/* รายละเอียด */
+/* รายละเอียดข่าว */
 
 .detail{
 font-size:18px;
 line-height:1.9;
+
 margin-top:13px;
 margin-bottom:25px;
+
 text-align:justify;
+text-justify:inter-word;
+
+white-space:normal;
 word-break:break-word;
 }
 
 .detail p{
-margin:0 0 12px 0;
+margin:0;
 text-indent:50px;
 }
 
@@ -228,15 +233,9 @@ function generate(){
 showdept.innerText="หน่วยงาน : "+dept.value
 showdate.innerText=formatThaiDate(date.value)
 
-let paragraphs = detail.value.split("\n")
+/* แสดงรายละเอียดข่าว */
 
-showdetail.innerHTML=""
-
-paragraphs.forEach(p=>{
-if(p.trim()!==""){
-showdetail.innerHTML+="<p>"+p+"</p>"
-}
-})
+showdetail.innerHTML = "<p>" + detail.value + "</p>"
 
 let files=images.files
 
