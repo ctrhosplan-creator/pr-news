@@ -284,27 +284,37 @@ reader.readAsDataURL(files[i])
 
 function download(){
 
+let win = window.open("");   // เปิดแท็บก่อน (Safari จะไม่บล็อก)
+
 html2canvas(document.querySelector("#poster"),{
 scale:4
 }).then(canvas=>{
 
-let img = canvas.toDataURL("image/jpeg",1)
+let img = canvas.toDataURL("image/jpeg",1);
 
-if(/iPhone|iPad|iPod/.test(navigator.userAgent)){
-
-let newTab = window.open()
-newTab.document.write('<img src="'+img+'" style="width:100%">')
+if(/iPhone|iPad|iPod/i.test(navigator.userAgent)){
+    
+    // iPhone / Safari
+    win.document.write(
+        '<html><head><title>บันทึกรูป</title></head><body style="margin:0;text-align:center;background:#000;">' +
+        '<p style="color:white;font-family:sans-serif">กดค้างที่รูป แล้วเลือก "บันทึกรูปภาพ"</p>' +
+        '<img src="'+img+'" style="width:100%;max-width:100%">' +
+        '</body></html>'
+    );
 
 }else{
 
-let link=document.createElement("a")
-link.download="ข่าวประชาสัมพันธ์.jpg"
-link.href=img
-link.click()
+    // Android / คอมพิวเตอร์
+    let link=document.createElement("a");
+    link.href=img;
+    link.download="ข่าวประชาสัมพันธ์.jpg";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 
 }
 
-})
+});
 
 }
 
