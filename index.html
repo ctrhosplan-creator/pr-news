@@ -56,9 +56,8 @@ height:1123px;
 
 margin:auto;
 
-background-image:url("bg.png");
+background:url("bg.png") no-repeat center;
 background-size:cover;
-background-position:center;
 
 position:relative;
 
@@ -67,13 +66,13 @@ overflow:hidden;
 
 }
 
-/* CONTENT AREA */
+/* CONTENT */
 
 .content{
 
 position:absolute;
 
-top:300px;
+top:320px;
 left:70px;
 right:70px;
 
@@ -98,7 +97,7 @@ margin-bottom:10px;
 font-size:22px;
 color:#0b6b3a;
 
-margin-bottom:25px;
+margin-bottom:20px;
 
 }
 
@@ -152,11 +151,11 @@ border-radius:6px;
 <label>รายละเอียดข่าว</label>
 <textarea id="detail" rows="4"></textarea>
 
-<label>รูปภาพ (สูงสุด 9 รูป)</label>
+<label>รูปภาพกิจกรรม (สูงสุด 9 รูป)</label>
 <input type="file" id="images" multiple accept="image/*">
 
 <button onclick="generate()">สร้างข่าว</button>
-<button onclick="download()">บันทึกรูป</button>
+<button onclick="download()">📥 บันทึกรูป</button>
 
 </div>
 
@@ -179,6 +178,8 @@ border-radius:6px;
 <script>
 
 function formatThaiDate(dateStr){
+
+if(!dateStr) return ""
 
 const months=[
 "มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน",
