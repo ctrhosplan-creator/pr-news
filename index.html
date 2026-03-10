@@ -2,59 +2,23 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>ระบบสร้างข่าวประชาสัมพันธ์</title>
-
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<title>จดหมายข่าวประชาสัมพันธ์</title>
 
 <style>
 
 body{
-font-family:Tahoma;
-background:#eef2f1;
-padding:20px;
+margin:0;
+display:flex;
+justify-content:center;
+background:#e5e5e5;
+font-family:TH Sarabun New, sans-serif;
 }
 
-/* FORM */
+/* กระดาษ */
+.paper{
 
-.formbox{
-background:white;
-max-width:900px;
-margin:auto;
-padding:20px;
-border-radius:10px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-margin-bottom:20px;
-}
-
-input,textarea{
-width:100%;
-padding:10px;
-margin-bottom:15px;
-border:1px solid #ccc;
-border-radius:6px;
-font-size:16px;
-}
-
-button{
-background:#0b6b3a;
-color:white;
-border:none;
-padding:12px 20px;
-border-radius:6px;
-cursor:pointer;
-margin-right:10px;
-}
-
-/* POSTER */
-
-.poster{
-
-width:794px;
-height:1123px;
-
-margin:auto;
+width:900px;
+height:1270px;
 
 background:url("bg.png") no-repeat center;
 background-size:cover;
@@ -66,66 +30,69 @@ overflow:hidden;
 
 }
 
-/* CONTENT */
+/* วันที่ */
+
+.date{
+
+position:absolute;
+top:190px;
+width:100%;
+text-align:center;
+
+font-size:30px;
+font-weight:bold;
+
+color:#ffffff;
+text-shadow:0 2px 5px rgba(0,0,0,0.4);
+
+}
+
+/* เนื้อหา */
 
 .content{
 
 position:absolute;
 
-top:340px;
+top:260px;
 left:80px;
 right:80px;
 
 text-align:center;
 
-}
-
-/* TEXT */
-
-.dept{
-
-font-size:26px;
-font-weight:bold;
-color:#0b6b3a;
-margin-bottom:8px;
-
-}
-
-.date{
-
 font-size:22px;
-color:#0b6b3a;
-margin-bottom:20px;
+line-height:1.7;
 
 }
 
-.detail{
+/* หัวข้อ */
 
-font-size:19px;
-line-height:1.6;
-white-space:pre-line;
-margin-bottom:30px;
-
+.title{
+font-size:28px;
+font-weight:bold;
+color:#0a6a3a;
+margin-bottom:10px;
 }
 
-/* IMAGES */
+/* รูปภาพ */
 
-.images{
+.gallery{
+
+margin-top:30px;
 
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:12px;
+gap:10px;
 
 }
 
-.images img{
+.gallery img{
 
 width:100%;
 height:160px;
 
 object-fit:cover;
 
-border-radius:8px;
+border-radius:10px;
 
 }
 
@@ -134,117 +101,54 @@ border-radius:8px;
 
 <body>
 
-<div class="formbox">
+<div class="paper">
 
-<h3>กรอกข้อมูลข่าวประชาสัมพันธ์</h3>
-
-<label>หน่วยงาน</label>
-<input type="text" id="dept">
-
-<label>วันที่</label>
-<input type="date" id="date">
-
-<label>รายละเอียดข่าว</label>
-<textarea id="detail" rows="5"></textarea>
-
-<label>รูปภาพกิจกรรม (สูงสุด 9 รูป)</label>
-<input type="file" id="images" multiple accept="image/*">
-
-<button onclick="generate()">สร้างข่าว</button>
-<button onclick="download()">📥 บันทึกรูป</button>
-
+<div class="date">
+วันที่ 10 มีนาคม 2569
 </div>
-
-
-<div id="poster" class="poster">
 
 <div class="content">
 
-<div class="dept" id="showdept"></div>
-<div class="date" id="showdate"></div>
+<div class="title">
+หน่วยงาน : แผนงานยุทธศาสตร์
+</div>
 
-<div class="detail" id="showdetail"></div>
+วันที่ส่งโครงการ : 27 ม.ค. 2569  
+ดำเนินงานถึงวันที่ : 12 ก.พ. 2569  
+ใช้เวลาดำเนินงาน : 17 วัน  
 
-<div class="images" id="showimages"></div>
+ชื่อโครงการ : โครงการพัฒนาระบบการแพทย์ฉุกเฉินครบวงจรและส่งต่อ  
+อำเภอจัตุรัส จังหวัดชัยภูมิ ปีงบประมาณ 2569  
+
+แหล่งงบประมาณ : บำรุง (กองทุน / PPA / PPB)  
+
+ผู้บันทึก : น.ส.ธันยพร เขียววงษ์ฝัน  
+หน่วยงาน (ผู้บันทึก) : โรงพยาบาลจัตุรัส  
+
+หน่วยงาน (ผู้ส่งโครงการ) : โรงพยาบาลจัตุรัส  
+
+สถานะ : รับกลับ  
+โดย : ประยงค์
+
+<div class="gallery">
+
+<img src="1.jpg">
+<img src="2.jpg">
+<img src="3.jpg">
+
+<img src="4.jpg">
+<img src="5.jpg">
+<img src="6.jpg">
+
+<img src="7.jpg">
+<img src="8.jpg">
+<img src="9.jpg">
 
 </div>
 
 </div>
 
-
-<script>
-
-function formatThaiDate(dateStr){
-
-if(!dateStr) return ""
-
-const months=[
-"มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน",
-"กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"
-]
-
-let d=new Date(dateStr)
-
-let day=d.getDate()
-let month=months[d.getMonth()]
-let year=d.getFullYear()+543
-
-return "วันที่ "+day+" "+month+" "+year
-
-}
-
-function generate(){
-
-showdept.innerText="หน่วยงาน : "+dept.value
-showdate.innerText=formatThaiDate(date.value)
-showdetail.innerText=detail.value
-
-let files=images.files
-
-if(files.length>9){
-alert("อัปโหลดได้ไม่เกิน 9 รูป")
-return
-}
-
-showimages.innerHTML=""
-
-for(let i=0;i<files.length;i++){
-
-let reader=new FileReader()
-
-reader.onload=function(e){
-
-let img=document.createElement("img")
-img.src=e.target.result
-
-showimages.appendChild(img)
-
-}
-
-reader.readAsDataURL(files[i])
-
-}
-
-}
-
-function download(){
-
-html2canvas(document.querySelector("#poster"),{
-scale:4
-}).then(canvas=>{
-
-let link=document.createElement("a")
-
-link.download="ข่าวประชาสัมพันธ์.jpg"
-link.href=canvas.toDataURL("image/jpeg",1)
-
-link.click()
-
-})
-
-}
-
-</script>
+</div>
 
 </body>
 </html>
