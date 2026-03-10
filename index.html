@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -100,13 +99,10 @@ right:80px;
 .detail{
 font-size:18px;
 line-height:1.9;
-
 margin-top:13px;
 margin-bottom:25px;
-
 text-align:justify;
 text-justify:inter-word;
-
 white-space:normal;
 word-break:break-word;
 }
@@ -233,8 +229,6 @@ function generate(){
 showdept.innerText="หน่วยงาน : "+dept.value
 showdate.innerText=formatThaiDate(date.value)
 
-/* แสดงรายละเอียดข่าว */
-
 showdetail.innerHTML = "<p>" + detail.value + "</p>"
 
 let files=images.files
@@ -245,8 +239,6 @@ return
 }
 
 showimages.innerHTML=""
-
-/* จัด Layout รูป */
 
 let count = files.length
 
@@ -264,9 +256,6 @@ showimages.style.gridTemplateColumns="1fr 1fr 1fr"
 }
 else if(count==4){
 showimages.style.gridTemplateColumns="1fr 1fr"
-}
-else if(count<=6){
-showimages.style.gridTemplateColumns="1fr 1fr 1fr"
 }
 else{
 showimages.style.gridTemplateColumns="1fr 1fr 1fr"
@@ -290,22 +279,27 @@ reader.readAsDataURL(files[i])
 
 }
 
-/* DOWNLOAD รองรับมือถือ */
+/* บันทึกโปสเตอร์ */
+
 function download(){
+
+let w = window.open("");
 
 html2canvas(document.querySelector("#poster"),{
 scale:4,
 useCORS:true
 }).then(canvas=>{
 
-let img = canvas.toDataURL("image/png")
+let img = canvas.toDataURL("image/png");
 
-let w = window.open("")
-
+w.document.open();
 w.document.write(`
+<!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>บันทึกโปสเตอร์</title>
+
 <style>
 body{
 margin:0;
@@ -313,33 +307,41 @@ background:#000;
 text-align:center;
 font-family:tahoma;
 }
+
 img{
 width:100%;
 height:auto;
+cursor:pointer;
 }
+
 p{
 color:white;
 font-size:18px;
 padding:15px;
 }
 </style>
+
 </head>
 
 <body>
 
-<p>กดค้างที่รูปเพื่อบันทึก</p>
+<p>กดที่โปสเตอร์เพื่อบันทึกรูป</p>
 
+<a href="${img}" download="poster.png">
 <img src="${img}">
+</a>
 
 </body>
 </html>
-`)
+`);
 
-})
+w.document.close();
+
+});
+
 }
 
 </script>
 
 </body>
 </html>
-```
