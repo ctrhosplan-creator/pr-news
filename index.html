@@ -295,25 +295,55 @@ reader.readAsDataURL(files[i])
 function download(){
 
 html2canvas(document.querySelector("#poster"),{
-scale:4
+scale:4,
+useCORS:true
 }).then(canvas=>{
 
-let img = canvas.toDataURL("image/jpeg",1)
+let img = canvas.toDataURL("image/png")
 
-if(/iPhone|iPad|iPod/i.test(navigator.userAgent)){
+/* ตรวจสอบว่าเป็น LINE browser */
 
-let newTab = document.createElement("a")
-newTab.href = img
-newTab.target = "_blank"
-document.body.appendChild(newTab)
-newTab.click()
-document.body.removeChild(newTab)
+let ua = navigator.userAgent.toLowerCase()
+let isLine = ua.includes("line")
+
+/* ถ้าเป็นมือถือ หรือ LINE */
+
+if(/Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || isLine){
+
+let newWindow = window.open("")
+newWindow.document.write(`
+<html>
+<head>
+<title>บันทึกรูป</title>
+<style>
+body{
+margin:0;
+background:black;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+img{
+width:100%;
+height:auto;
+}
+</style>
+</head>
+<body>
+<img src="${img}">
+</body>
+</html>
+`)
+
+/* ผู้ใช้กดค้างที่รูปเพื่อบันทึก */
 
 }else{
 
-let link = document.createElement("a")
-link.href = img
-link.download = "ข่าวประชาสัมพันธ์.jpg"
+/* คอมพิวเตอร์ */
+
+let link=document.createElement("a")
+link.href=img
+link.download="ข่าวประชาสัมพันธ์.png"
 document.body.appendChild(link)
 link.click()
 document.body.removeChild(link)
