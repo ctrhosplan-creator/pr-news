@@ -61,32 +61,63 @@ border-radius:10px;
 overflow:hidden;
 box-shadow:0 10px 30px rgba(0,0,0,0.2);
 position:relative;
-padding-bottom:70px;
+padding-bottom:80px;
 }
 
 /* ===== HEADER ===== */
 
 .header{
-background:linear-gradient(90deg,#1c7a45,#2ea85e,#7ac96d);
+background:linear-gradient(120deg,#0f6d3d,#1fa463,#79d38a);
 color:white;
-padding:40px 30px;
+padding:45px 35px;
 display:flex;
 align-items:center;
-gap:20px;
+gap:25px;
+position:relative;
+overflow:hidden;
+}
+
+.header::before{
+content:"";
+position:absolute;
+right:-120px;
+top:-90px;
+width:500px;
+height:260px;
+background:rgba(255,255,255,0.15);
+border-radius:50%;
+}
+
+.header::after{
+content:"";
+position:absolute;
+left:-140px;
+bottom:-120px;
+width:420px;
+height:220px;
+background:rgba(255,255,255,0.08);
+border-radius:50%;
 }
 
 .header img{
-height:75px;
+height:80px;
+z-index:2;
+}
+
+.header-text{
+z-index:2;
 }
 
 .header h1{
 margin:0;
-font-size:28px;
+font-size:30px;
 }
 
 .subtitle{
 font-size:15px;
-opacity:.9;
+opacity:.95;
+margin-top:5px;
+max-width:500px;
 }
 
 /* ===== TITLE ===== */
@@ -131,10 +162,8 @@ white-space:pre-line;
 
 .images{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:12px;
 padding:20px;
-justify-items:center;
 }
 
 .images img{
@@ -152,7 +181,6 @@ color:white;
 padding:12px;
 text-align:center;
 font-size:15px;
-
 position:absolute;
 bottom:0;
 left:0;
@@ -191,7 +219,7 @@ width:100%;
 
 <img src="moph.png">
 
-<div>
+<div class="header-text">
 
 <h1>โรงพยาบาลจัตุรัส จังหวัดชัยภูมิ</h1>
 
@@ -258,7 +286,26 @@ return
 
 showimages.innerHTML=""
 
-for(let i=0;i<files.length;i++){
+/* Layout รูปอัตโนมัติ */
+
+let col=3
+
+if(files.length==1){
+col=1
+}
+else if(files.length==2){
+col=2
+}
+else if(files.length<=4){
+col=2
+}
+else{
+col=3
+}
+
+showimages.style.gridTemplateColumns="repeat("+col+",1fr)"
+
+for(let i=0;i<files.length && i<9;i++){
 
 let reader=new FileReader()
 
@@ -266,6 +313,7 @@ reader.onload=function(e){
 
 let img=document.createElement("img")
 img.src=e.target.result
+
 showimages.appendChild(img)
 
 }
@@ -286,6 +334,7 @@ useCORS:true
 let link=document.createElement("a")
 link.download="ข่าวประชาสัมพันธ์.jpg"
 link.href=canvas.toDataURL("image/jpeg",1)
+
 link.click()
 
 })
