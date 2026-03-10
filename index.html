@@ -17,7 +17,7 @@ padding:20px;
 background:#eef5f1;
 }
 
-/* FORM */
+/* ===== FORM ===== */
 
 .formbox{
 background:white;
@@ -49,11 +49,11 @@ margin-right:10px;
 font-size:16px;
 }
 
-/* POSTER */
+/* ===== POSTER ===== */
 
 .poster{
 width:794px;
-height:1123px;
+min-height:1123px;
 margin:auto;
 background:white;
 border-radius:10px;
@@ -62,7 +62,7 @@ box-shadow:0 10px 30px rgba(0,0,0,0.2);
 position:relative;
 }
 
-/* HEADER */
+/* ===== HEADER ===== */
 
 .header{
 background:linear-gradient(90deg,#1c7a45,#2ea85e,#7ac96d);
@@ -71,13 +71,10 @@ padding:40px 30px;
 display:flex;
 align-items:center;
 gap:20px;
-position:relative;
-overflow:hidden;
 }
 
 .header img{
 height:75px;
-z-index:2;
 }
 
 .header h1{
@@ -90,7 +87,7 @@ font-size:15px;
 opacity:.9;
 }
 
-/* TITLE */
+/* ===== TITLE ===== */
 
 .titlebar{
 background:#006c3c;
@@ -100,7 +97,7 @@ font-weight:bold;
 padding:10px 25px;
 }
 
-/* META */
+/* ===== META ===== */
 
 .meta{
 text-align:center;
@@ -115,24 +112,27 @@ font-weight:bold;
 
 #showdate{
 font-size:18px;
+margin-top:5px;
 }
 
-/* CONTENT */
+/* ===== CONTENT ===== */
 
 .content{
-padding:10px 25px;
+padding:10px 25px 20px 25px;
 font-size:18px;
 line-height:1.6;
 text-align:center;
 white-space:pre-line;
 }
 
-/* IMAGES */
+/* ===== IMAGES ===== */
 
 .images{
 display:grid;
-gap:10px;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:12px;
 padding:20px;
+justify-items:center;
 }
 
 .images img{
@@ -142,7 +142,7 @@ object-fit:cover;
 border-radius:6px;
 }
 
-/* FOOTER */
+/* ===== FOOTER ===== */
 
 .footer{
 background:linear-gradient(90deg,#006c3c,#0a8f55);
@@ -150,15 +150,14 @@ color:white;
 padding:12px;
 text-align:center;
 font-size:15px;
-position:absolute;
-bottom:0;
-width:100%;
 }
 
 </style>
 </head>
 
 <body>
+
+<!-- ===== FORM ===== -->
 
 <div class="formbox">
 
@@ -177,9 +176,11 @@ width:100%;
 <input type="file" id="images" multiple accept="image/*">
 
 <button onclick="generate()">สร้างข่าว</button>
-<button onclick="download()">📥 บันทึกรูป</button>
+<button onclick="download()">📥 บันทึกรูปลงมือถือ</button>
 
 </div>
+
+<!-- ===== POSTER ===== -->
 
 <div id="poster" class="poster">
 
@@ -196,6 +197,7 @@ width:100%;
 </div>
 
 </div>
+
 </div>
 
 <div class="titlebar">
@@ -216,6 +218,8 @@ www.ctrhos.go.th | โทร 044-851499
 </div>
 
 </div>
+
+<!-- ===== SCRIPT ===== -->
 
 <script>
 
@@ -252,22 +256,6 @@ return
 }
 
 showimages.innerHTML=""
-
-/* ปรับจำนวนคอลัมน์ */
-
-if(files.length<=3){
-
-showimages.style.gridTemplateColumns="1fr"
-
-}else if(files.length<=6){
-
-showimages.style.gridTemplateColumns="1fr 1fr"
-
-}else{
-
-showimages.style.gridTemplateColumns="1fr 1fr 1fr"
-
-}
 
 for(let i=0;i<files.length;i++){
 
