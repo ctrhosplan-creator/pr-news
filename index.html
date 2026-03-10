@@ -279,7 +279,7 @@ reader.readAsDataURL(files[i])
 
 }
 
-/* ระบบบันทึกโปสเตอร์ */
+/* ดาวน์โหลดโปสเตอร์ */
 
 function download(){
 
@@ -288,13 +288,13 @@ scale:4,
 useCORS:true
 }).then(canvas=>{
 
-let img=canvas.toDataURL("image/png")
+let img = canvas.toDataURL("image/png")
 
-let isMobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
 
 if(isMobile){
 
-let w=window.open("")
+let w = window.open("")
 
 w.document.open()
 w.document.write(`
@@ -302,7 +302,6 @@ w.document.write(`
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>บันทึกโปสเตอร์</title>
 
 <style>
 body{
@@ -317,10 +316,20 @@ width:100%;
 height:auto;
 }
 
+button{
+margin:20px;
+padding:15px 25px;
+font-size:18px;
+background:#0b6b3a;
+color:white;
+border:none;
+border-radius:8px;
+}
+
 p{
 color:white;
-font-size:18px;
-padding:15px;
+font-size:16px;
+padding-top:10px;
 }
 </style>
 
@@ -328,9 +337,15 @@ padding:15px;
 
 <body>
 
-<p>กดค้างที่โปสเตอร์เพื่อบันทึกรูป</p>
+<p>กดปุ่มด้านล่างเพื่อบันทึกรูป</p>
 
 <img src="${img}">
+
+<br>
+
+<a href="${img}" download="poster.png">
+<button>📥 ดาวน์โหลดรูป</button>
+</a>
 
 </body>
 </html>
