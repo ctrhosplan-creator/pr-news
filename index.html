@@ -110,17 +110,17 @@ color:black;
 
 position:absolute;
 
-top:275px;   /* เลื่อนขึ้นเล็กน้อย */
+top:275px;
 
 left:80px;
 right:80px;
 
 text-align:center;
-text-indent:40px; 
 
 }
 
 /* รายละเอียด */
+
 .detail{
 
 font-size:18px;
@@ -138,6 +138,7 @@ word-break:break-word;
 margin:0 0 12px 0;
 text-indent:50px;
 }
+
 /* รูป */
 
 .images{
@@ -235,19 +236,21 @@ return "วันที่ "+day+" "+month+" "+year
 
 }
 
+
 function generate(){
 
 showdept.innerText="หน่วยงาน : "+dept.value
 showdate.innerText=formatThaiDate(date.value)
+
 let paragraphs = detail.value.split("\n");
 
-showdetail.innerHTML = "";
+showdetail.innerHTML=""
 
-paragraphs.forEach(p => {
-if(p.trim() !== ""){
-showdetail.innerHTML += "<p>"+p+"</p>";
+paragraphs.forEach(p=>{
+if(p.trim()!==""){
+showdetail.innerHTML+="<p>"+p+"</p>"
 }
-});
+})
 
 let files=images.files
 
@@ -266,7 +269,6 @@ reader.onload=function(e){
 
 let img=document.createElement("img")
 img.src=e.target.result
-
 showimages.appendChild(img)
 
 }
@@ -277,18 +279,30 @@ reader.readAsDataURL(files[i])
 
 }
 
+
+/* DOWNLOAD รองรับมือถือ */
+
 function download(){
 
 html2canvas(document.querySelector("#poster"),{
 scale:4
 }).then(canvas=>{
 
+let img = canvas.toDataURL("image/jpeg",1)
+
+if(/iPhone|iPad|iPod/.test(navigator.userAgent)){
+
+let newTab = window.open()
+newTab.document.write('<img src="'+img+'" style="width:100%">')
+
+}else{
+
 let link=document.createElement("a")
-
 link.download="ข่าวประชาสัมพันธ์.jpg"
-link.href=canvas.toDataURL("image/jpeg",1)
-
+link.href=img
 link.click()
+
+}
 
 })
 
