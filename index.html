@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="th">
 <head>
 <meta charset="UTF-8">
@@ -17,7 +18,7 @@ padding:20px;
 background:#eef5f1;
 }
 
-/* ===== FORM ===== */
+/* FORM */
 
 .formbox{
 background:white;
@@ -49,36 +50,35 @@ margin-right:10px;
 font-size:16px;
 }
 
-/* ===== POSTER ===== */
+/* POSTER */
 
 .poster{
 width:794px;
 min-height:1123px;
 margin:auto;
 
-background-image:url("bg.jpg");
+background-image:url("bg.png");
 background-size:cover;
 background-position:center;
 
 border-radius:10px;
 overflow:hidden;
 box-shadow:0 10px 30px rgba(0,0,0,0.2);
-position:relative;
 }
 
-/* ===== HEADER ===== */
+/* HEADER */
 
 .header{
 background:linear-gradient(90deg,#1c7a45,#2ea85e,#7ac96d);
 color:white;
-padding:40px 30px;
+padding:35px 30px;
 display:flex;
 align-items:center;
 gap:20px;
 }
 
 .header img{
-height:75px;
+height:70px;
 background:white;
 border-radius:50%;
 padding:5px;
@@ -86,7 +86,7 @@ padding:5px;
 
 .header h1{
 margin:0;
-font-size:28px;
+font-size:26px;
 }
 
 .subtitle{
@@ -94,7 +94,7 @@ font-size:15px;
 opacity:.9;
 }
 
-/* ===== TITLE ===== */
+/* TITLE */
 
 .titlebar{
 background:#006c3c;
@@ -104,17 +104,14 @@ font-weight:bold;
 padding:10px 25px;
 }
 
-/* ===== META ===== */
+/* META */
 
 .meta{
 text-align:center;
 padding:12px;
-
 background:rgba(255,255,255,0.85);
-margin:12px 25px;
-
+margin:15px 25px;
 border-radius:12px;
-
 color:#006c3c;
 }
 
@@ -128,7 +125,7 @@ font-size:18px;
 margin-top:5px;
 }
 
-/* ===== CONTENT ===== */
+/* CONTENT */
 
 .content{
 padding:20px 35px;
@@ -141,11 +138,9 @@ background:rgba(255,255,255,0.85);
 margin:12px 25px;
 
 border-radius:12px;
-
-box-shadow:0 4px 12px rgba(0,0,0,0.08);
 }
 
-/* ===== IMAGES ===== */
+/* IMAGES */
 
 .images{
 display:grid;
@@ -159,11 +154,10 @@ width:100%;
 height:180px;
 object-fit:cover;
 border-radius:8px;
-
 box-shadow:0 3px 8px rgba(0,0,0,0.15);
 }
 
-/* ===== FOOTER ===== */
+/* FOOTER */
 
 .footer{
 background:linear-gradient(90deg,#006c3c,#0a8f55);
@@ -175,34 +169,28 @@ margin-top:10px;
 }
 
 </style>
+
 </head>
 
 <body>
-
-<!-- ===== FORM ===== -->
 
 <div class="formbox">
 
 <h3>กรอกข้อมูลข่าวประชาสัมพันธ์</h3>
 
-<label>หน่วยงาน</label>
-<input type="text" id="dept">
+<label>หน่วยงาน</label> <input type="text" id="dept">
 
-<label>วันที่กิจกรรม</label>
-<input type="date" id="date">
+<label>วันที่กิจกรรม</label> <input type="date" id="date">
 
 <label>รายละเอียดข่าว</label>
+
 <textarea id="detail" rows="4"></textarea>
 
-<label>รูปภาพกิจกรรม (สูงสุด 9 รูป)</label>
-<input type="file" id="images" multiple accept="image/*">
+<label>รูปภาพกิจกรรม (สูงสุด 9 รูป)</label> <input type="file" id="images" multiple accept="image/*">
 
-<button onclick="generate()">สร้างข่าว</button>
-<button onclick="download()">📥 บันทึกรูปลงมือถือ</button>
+<button onclick="generate()">สร้างข่าว</button> <button onclick="download()">บันทึกรูป</button>
 
 </div>
-
-<!-- ===== POSTER ===== -->
 
 <div id="poster" class="poster">
 
@@ -240,8 +228,6 @@ www.ctrhos.go.th | โทร 044-851499
 </div>
 
 </div>
-
-<!-- ===== SCRIPT ===== -->
 
 <script>
 
