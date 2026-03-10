@@ -66,7 +66,27 @@ overflow:hidden;
 
 }
 
-/* CONTENT */
+/* DATE ON GREEN BAR */
+
+.newsdate{
+
+position:absolute;
+
+top:235px;
+left:50%;
+
+transform:translateX(-50%);
+
+font-size:26px;
+font-weight:bold;
+
+color:white;
+
+text-shadow:0 2px 4px rgba(0,0,0,0.3);
+
+}
+
+/* CONTENT AREA */
 
 .content{
 
@@ -89,15 +109,6 @@ font-weight:bold;
 color:#0b6b3a;
 
 margin-bottom:10px;
-
-}
-
-.date{
-
-font-size:22px;
-color:#0b6b3a;
-
-margin-bottom:20px;
 
 }
 
@@ -162,10 +173,12 @@ border-radius:6px;
 
 <div id="poster" class="poster">
 
+<div class="newsdate" id="showdate"></div>
+
 <div class="content">
 
 <div class="dept" id="showdept"></div>
-<div class="date" id="showdate"></div>
+
 <div class="detail" id="showdetail"></div>
 
 <div class="images" id="showimages"></div>
