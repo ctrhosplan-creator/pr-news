@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -102,8 +103,6 @@ line-height:1.9;
 margin-top:13px;
 margin-bottom:25px;
 text-align:justify;
-text-justify:inter-word;
-white-space:normal;
 word-break:break-word;
 }
 
@@ -126,7 +125,7 @@ object-fit:cover;
 border-radius:8px;
 }
 
-/* ถ้ามีรูปเดียว */
+/* รูปเดียว */
 
 .images.single img{
 height:420px;
@@ -229,7 +228,10 @@ function generate(){
 showdept.innerText="หน่วยงาน : "+dept.value
 showdate.innerText=formatThaiDate(date.value)
 
-showdetail.innerHTML = "<p>" + detail.value + "</p>"
+/* รองรับขึ้นบรรทัด */
+
+let text = detail.value.replace(/\n/g,"<br><br>")
+showdetail.innerHTML = "<p>"+text+"</p>"
 
 let files=images.files
 
@@ -261,7 +263,7 @@ else{
 showimages.style.gridTemplateColumns="1fr 1fr 1fr"
 }
 
-for(let i=0;i<files.length;i++){
+for(let i=0;i<count;i++){
 
 let reader=new FileReader()
 
@@ -279,49 +281,56 @@ reader.readAsDataURL(files[i])
 
 }
 
-/* DOWNLOAD */
+/* DOWNLOAD POSTER */
 
 function download(){
 
-html2canvas(document.querySelector("#poster"),{
-scale:4
+const poster=document.querySelector("#poster")
+
+html2canvas(poster,{
+scale:3,
+useCORS:true
 }).then(canvas=>{
 
-let img = canvas.toDataURL("image/jpeg",1)
+let img=canvas.toDataURL("image/jpeg",1)
 
-let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+let isMobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
 
 if(isMobile){
 
-let newTab = window.open("")
+let newTab=window.open("_blank")
 
 newTab.document.write(`
+<!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <style>
+
 body{
 margin:0;
 background:black;
 text-align:center;
 }
+
 img{
 width:100%;
 height:auto;
 }
+
 p{
 color:white;
 font-size:18px;
-padding:10px;
+padding:12px;
+font-family:Tahoma;
 }
-</style>
 
+</style>
 </head>
 
 <body>
 
-<p>กดค้างที่รูปเพื่อบันทึก</p>
+<p>กดค้างที่รูปเพื่อบันทึกโปสเตอร์</p>
 
 <img src="${img}">
 
@@ -331,9 +340,10 @@ padding:10px;
 
 }else{
 
-let link = document.createElement("a")
-link.href = img
-link.download = "ข่าวประชาสัมพันธ์.jpg"
+let link=document.createElement("a")
+link.href=img
+link.download="ข่าวประชาสัมพันธ์.jpg"
+
 document.body.appendChild(link)
 link.click()
 document.body.removeChild(link)
@@ -348,3 +358,4 @@ document.body.removeChild(link)
 
 </body>
 </html>
+```
