@@ -2,116 +2,172 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>สร้างจดหมายข่าว</title>
 
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 <style>
-
 body{
-font-family:tahoma;
-background:#f3f4f6;
-margin:0;
+    font-family:tahoma;
+    background:#f3f4f6;
+    margin:0;
+    padding:20px 0;
 }
 
 .container{
-width:900px;
-margin:auto;
-margin-top:30px;
+    width:900px;
+    margin:auto;
 }
 
 .card{
-background:white;
-padding:25px;
-border-radius:10px;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
 
 h2{
-color:#2e7d32;
+    color:#2e7d32;
+    margin-top:0;
 }
 
-input,textarea,select{
-width:100%;
-padding:10px;
-margin-top:8px;
-margin-bottom:15px;
-border:1px solid #ccc;
-border-radius:6px;
+label{
+    font-weight:bold;
+    display:block;
+    margin-top:8px;
+}
+
+input, textarea{
+    width:100%;
+    padding:10px;
+    margin-top:8px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    box-sizing:border-box;
+    font-family:tahoma;
+    font-size:15px;
+}
+
+textarea{
+    min-height:120px;
+    resize:vertical;
+}
+
+.button-group{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
 }
 
 button{
-background:#2e7d32;
-color:white;
-border:none;
-padding:12px 20px;
-border-radius:6px;
-cursor:pointer;
+    background:#2e7d32;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:15px;
 }
 
 button:hover{
-background:#1b5e20;
+    background:#1b5e20;
 }
 
-/* ====== แก้ไขส่วนนี้ ====== */
+/* ===== ส่วนแสดงจดหมายข่าว ===== */
 .preview{
-width:794px;
-min-height:1123px;
-padding:30px;
-margin-top:40px;
-border:1px solid #ddd;
-
-position:relative;
-
-/* BG จาก GitHub */
-background-image:url('https://raw.githubusercontent.com/ctrhosplan-creator/pr-news/main/bg.png');
-background-size:cover;
-background-position:center;
-background-repeat:no-repeat;
+    width:794px;
+    min-height:1123px;
+    margin:40px auto 0;
+    position:relative;
+    overflow:hidden;
+    border:1px solid #ddd;
+    background:#fff;
+    box-sizing:border-box;
 }
 
-/* ทำให้ตัวหนังสืออ่านง่าย */
-.preview::before{
-content:"";
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(255,255,255,0.85);
-z-index:0;
+.bg-image{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:0;
 }
 
-.preview *{
-position:relative;
-z-index:1;
-}
-/* ======================= */
-
-.news-title{
-text-align:center;
-font-size:28px;
-font-weight:bold;
+.overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(255,255,255,0.85);
+    z-index:1;
 }
 
-.news-sub{
-text-align:center;
-margin-bottom:20px;
+.content{
+    position:relative;
+    z-index:2;
+    padding:30px;
+}
+
+#showtitle{
+    margin-top:16px;
+    margin-bottom:14px;
+    color:#1b5e20;
+    text-align:center;
+    font-size:28px;
+}
+
+#showdetail{
+    line-height:1.8;
+    text-align:justify;
+    white-space:pre-line;
+    word-break:break-word;
+    font-size:18px;
 }
 
 .images{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:10px;
-margin-top:20px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-top:20px;
 }
 
 .images img{
-width:100%;
-height:150px;
-object-fit:cover;
+    width:100%;
+    height:150px;
+    object-fit:cover;
+    border-radius:6px;
+    display:block;
 }
 
+/* จัดรูปตามจำนวน */
+.images.one{
+    grid-template-columns:1fr;
+}
+.images.one img{
+    height:420px;
+}
+
+.images.two{
+    grid-template-columns:repeat(2,1fr);
+}
+.images.two img{
+    height:260px;
+}
+
+.images.four{
+    grid-template-columns:repeat(2,1fr);
+}
+.images.four img{
+    height:220px;
+}
+
+.images.more{
+    grid-template-columns:repeat(3,1fr);
+}
+.images.more img{
+    height:150px;
+}
 </style>
 </head>
 
@@ -119,115 +175,124 @@ object-fit:cover;
 
 <div class="container">
 
-<div class="card">
+    <div class="card">
+        <h2>📋 บันทึกข้อมูลกิจกรรม</h2>
 
-<h2>📋 บันทึกข้อมูลกิจกรรม</h2>
+        <label>วันที่จัดกิจกรรม</label>
+        <input type="date" id="date">
 
-<label>วันที่จัดกิจกรรม</label>
-<input type="date" id="date">
+        <label>ชื่อกิจกรรม</label>
+        <input type="text" id="title" placeholder="กรอกชื่อกิจกรรม">
 
-<label>ชื่อกิจกรรม</label>
-<input type="text" id="title">
+        <label>รายละเอียดกิจกรรม</label>
+        <textarea id="detail" placeholder="กรอกรายละเอียดกิจกรรม"></textarea>
 
-<label>รายละเอียดกิจกรรม</label>
-<textarea id="detail"></textarea>
+        <label>หน่วยงานรับผิดชอบ</label>
+        <input type="text" id="dept" placeholder="พิมพ์หน่วยงาน">
 
-<label>หน่วยงานรับผิดชอบ</label>
-<select id="dept">
-<option>สสอ.</option>
-<option>รพ.สต.</option>
-<option>งานควบคุมโรค</option>
-<option>งานส่งเสริมสุขภาพ</option>
-</select>
+        <label>รูปภาพกิจกรรม (เลือกได้หลายรูป)</label>
+        <input type="file" id="images" multiple accept="image/*">
 
-<label>รูปภาพกิจกรรม (เลือกได้หลายรูป)</label>
-<input type="file" id="images" multiple accept="image/*">
+        <div class="button-group">
+            <button onclick="generate()">สร้างจดหมายข่าว</button>
+            <button onclick="downloadJPG()">บันทึกเป็น JPG</button>
+        </div>
+    </div>
 
-<button onclick="generate()">สร้างจดหมายข่าว</button>
-<button onclick="download()">บันทึกเป็น JPG</button>
+    <div id="news" class="preview">
+        <img
+            class="bg-image"
+            id="bgImage"
+            src="https://raw.githubusercontent.com/ctrhosplan-creator/pr-news/main/bg.png"
+            crossorigin="anonymous"
+            alt="background"
+        >
+        <div class="overlay"></div>
 
-</div>
+        <div class="content">
+            <h3 id="showtitle">หัวข้อกิจกรรม</h3>
 
-<div id="news" class="preview">
+            <p id="showdetail">รายละเอียดกิจกรรม</p>
 
-<div class="news-title">จดหมายข่าว</div>
-<div class="news-sub">สำนักงานสาธารณสุข</div>
-
-<p><b>วันที่ :</b> <span id="showdate"></span></p>
-
-<h3 id="showtitle"></h3>
-
-<p id="showdetail"></p>
-
-<p><b>หน่วยงาน :</b> <span id="showdept"></span></p>
-
-<div class="images" id="showimages"></div>
-
-</div>
+            <div class="images" id="showimages"></div>
+        </div>
+    </div>
 
 </div>
 
 <script>
+function waitForImagesLoaded(container){
+    const images = container.querySelectorAll("img");
+    const promises = [];
+
+    images.forEach(img => {
+        if(img.complete) return;
+        promises.push(new Promise(resolve => {
+            img.onload = resolve;
+            img.onerror = resolve;
+        }));
+    });
+
+    return Promise.all(promises);
+}
+
+function setImageLayout(count, container){
+    container.className = "images";
+
+    if(count === 1){
+        container.classList.add("one");
+    }else if(count === 2){
+        container.classList.add("two");
+    }else if(count === 4){
+        container.classList.add("four");
+    }else if(count >= 5){
+        container.classList.add("more");
+    }
+}
 
 function generate(){
+    document.getElementById("showtitle").innerText =
+        document.getElementById("title").value || "หัวข้อกิจกรรม";
 
-// แปลงวันที่เป็นภาษาไทย
-let d = new Date(document.getElementById("date").value);
-let thDate = d.toLocaleDateString('th-TH', {
-year: 'numeric',
-month: 'long',
-day: 'numeric'
-});
+    document.getElementById("showdetail").innerText =
+        document.getElementById("detail").value || "รายละเอียดกิจกรรม";
 
-document.getElementById("showdate").innerText = thDate;
+    const files = document.getElementById("images").files;
+    const container = document.getElementById("showimages");
+    container.innerHTML = "";
 
-document.getElementById("showtitle").innerText =
-document.getElementById("title").value;
+    setImageLayout(files.length, container);
 
-document.getElementById("showdetail").innerHTML =
-document.getElementById("detail").value.replace(/\n/g,"<br>");
+    for(let i = 0; i < files.length; i++){
+        const reader = new FileReader();
 
-document.getElementById("showdept").innerText =
-document.getElementById("dept").value;
+        reader.onload = function(e){
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            container.appendChild(img);
+        };
 
-let files = document.getElementById("images").files;
-let container = document.getElementById("showimages");
-
-container.innerHTML="";
-
-for(let i=0;i<files.length;i++){
-
-let reader = new FileReader();
-
-reader.onload=function(e){
-
-let img=document.createElement("img");
-img.src=e.target.result;
-container.appendChild(img);
-
+        reader.readAsDataURL(files[i]);
+    }
 }
 
-reader.readAsDataURL(files[i]);
+async function downloadJPG(){
+    const news = document.getElementById("news");
 
+    await waitForImagesLoaded(news);
+
+    const canvas = await html2canvas(news, {
+        useCORS: true,
+        allowTaint: false,
+        scale: 2,
+        backgroundColor: "#ffffff"
+    });
+
+    const link = document.createElement("a");
+    link.download = "newsletter.jpg";
+    link.href = canvas.toDataURL("image/jpeg", 0.95);
+    link.click();
 }
-
-}
-
-function download(){
-
-html2canvas(document.querySelector("#news"),{
-useCORS:true
-}).then(canvas=>{
-
-let link=document.createElement("a");
-link.download="newsletter.jpg";
-link.href=canvas.toDataURL("image/jpeg");
-link.click();
-
-});
-
-}
-
 </script>
 
 </body>
