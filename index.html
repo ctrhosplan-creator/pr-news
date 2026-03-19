@@ -86,11 +86,6 @@ height:150px;
 object-fit:cover;
 }
 
-/* เพิ่มให้ข้อความอ่านง่าย */
-#showdetail{
-line-height:1.8;
-}
-
 </style>
 </head>
 
@@ -127,7 +122,6 @@ line-height:1.8;
 
 </div>
 
-
 <div id="news" class="preview">
 
 <div class="news-title">จดหมายข่าว</div>
@@ -147,7 +141,6 @@ line-height:1.8;
 
 </div>
 
-
 <script>
 
 function generate(){
@@ -158,7 +151,6 @@ document.getElementById("date").value;
 document.getElementById("showtitle").innerText =
 document.getElementById("title").value;
 
-/* ✅ จุดสำคัญ: ทำให้ขึ้นบรรทัดได้ */
 document.getElementById("showdetail").innerHTML =
 document.getElementById("detail").value.replace(/\n/g,"<br>");
 
@@ -188,12 +180,9 @@ reader.readAsDataURL(files[i]);
 
 }
 
-/* ✅ เพิ่มความคมตอน export */
 function download(){
 
-html2canvas(document.querySelector("#news"), {
-scale:2
-}).then(canvas=>{
+html2canvas(document.querySelector("#news")).then(canvas=>{
 
 let link=document.createElement("a");
 link.download="newsletter.jpg";
@@ -208,3 +197,4 @@ link.click();
 
 </body>
 </html>
+
