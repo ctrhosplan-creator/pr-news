@@ -61,7 +61,7 @@ textarea{
     border:1px solid #ddd;
 }
 
-/* BG จริง (ไม่จาง) */
+/* BG */
 .bg-image{
     position:absolute;
     inset:0;
@@ -75,37 +75,45 @@ textarea{
 .content{
     position:relative;
     z-index:2;
-    padding:30px;
 }
 
-/* หัวข้อ */
-#showdetail{
-    margin-top:160px;
-    line-height:1.8;
-    text-align:justify;
-    white-space:pre-wrap;   
+/* 🔥 หัวข้อ (อยู่แถบเขียว) */
+#showtitle{
+    position:absolute;
+    top:220px;        /* 👈 ปรับตำแหน่งได้ */
+    left:0;
+    width:100%;
+    text-align:center;
+    font-size:34px;
+    font-weight:bold;
     color:white;
-    font-size:20px;
-    text-shadow:1px 1px 4px rgba(0,0,0,0.7);
+    text-shadow:2px 2px 6px rgba(0,0,0,0.8);
 }
 
 /* รายละเอียด */
 #showdetail{
-    margin-top:160px;
+    position:absolute;
+    top:350px;
+    left:60px;
+    right:60px;
     line-height:1.8;
-    text-align:justify;
-    white-space:pre-line;
-    color:white;
+    white-space:pre-wrap;
+    color:black;
     font-size:20px;
-    text-shadow:1px 1px 4px rgba(0,0,0,0.7);
+    text-shadow:none;
+    
+    text-indent:40px;
 }
 
 /* รูปภาพ */
 .images{
+    position:absolute;
+    bottom:60px;
+    left:40px;
+    right:40px;
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:10px;
-    margin-top:30px;
 }
 
 .images img{
@@ -124,8 +132,6 @@ textarea{
 
 .images.four{ grid-template-columns:repeat(2,1fr); }
 .images.four img{ height:220px; }
-
-.images.more{ grid-template-columns:repeat(3,1fr); }
 </style>
 </head>
 
@@ -136,9 +142,6 @@ textarea{
 <div class="card">
 
 <h2>📋 บันทึกข้อมูลกิจกรรม</h2>
-
-<label>วันที่จัดกิจกรรม</label>
-<input type="date" id="date">
 
 <label>ชื่อกิจกรรม</label>
 <input type="text" id="title">
@@ -201,7 +204,6 @@ function setImageLayout(count, container){
     if(count === 1) container.classList.add("one");
     else if(count === 2) container.classList.add("two");
     else if(count === 4) container.classList.add("four");
-    else if(count >= 5) container.classList.add("more");
 }
 
 function generate(){
