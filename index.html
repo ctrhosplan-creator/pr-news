@@ -51,6 +51,13 @@ textarea{
     min-height:120px;
 }
 
+.helper{
+    margin-top:-8px;
+    margin-bottom:15px;
+    color:#666;
+    font-size:14px;
+}
+
 /* ===== พื้นที่โปสเตอร์ ===== */
 .preview{
     width:794px;
@@ -116,53 +123,69 @@ textarea{
     left:30px;
     right:30px;
     display:grid;
-    grid-template-columns:repeat(3,1fr);
     gap:10px;
 }
 
 .images img{
     width:100%;
-    height:170px;
     object-fit:cover;
     border-radius:6px;
     display:block;
     background:#fff;
 }
 
-/* layout รูป */
-.images.one{
+/* 1 รูป */
+.images.layout-1{
     grid-template-columns:1fr;
 }
-.images.one img{
+.images.layout-1 img{
     height:420px;
 }
 
-.images.two{
+/* 2 รูป */
+.images.layout-2{
     grid-template-columns:repeat(2,1fr);
 }
-.images.two img{
+.images.layout-2 img{
     height:260px;
 }
 
-.images.three{
+/* 3 รูป */
+.images.layout-3{
     grid-template-columns:repeat(3,1fr);
 }
-.images.three img{
+.images.layout-3 img{
     height:180px;
 }
 
-.images.four{
+/* 4 รูป */
+.images.layout-4{
     grid-template-columns:repeat(2,1fr);
 }
-.images.four img{
+.images.layout-4 img{
     height:220px;
 }
 
-.images.more{
+/* 5-6 รูป */
+.images.layout-5,
+.images.layout-6{
     grid-template-columns:repeat(3,1fr);
 }
-.images.more img{
+.images.layout-5 img,
+.images.layout-6 img{
     height:150px;
+}
+
+/* 7-9 รูป */
+.images.layout-7,
+.images.layout-8,
+.images.layout-9{
+    grid-template-columns:repeat(3,1fr);
+}
+.images.layout-7 img,
+.images.layout-8 img,
+.images.layout-9 img{
+    height:120px;
 }
 </style>
 </head>
@@ -186,6 +209,7 @@ textarea{
 
 <label>รูปภาพกิจกรรม</label>
 <input type="file" id="images" multiple accept="image/*">
+<div class="helper">เลือกได้ไม่เกิน 9 รูป</div>
 
 <button onclick="generate()">สร้างจดหมายข่าว</button>
 <button onclick="downloadJPG()">บันทึกเป็น JPG</button>
@@ -216,6 +240,8 @@ alt="background"
 </div>
 
 <script>
+const MAX_IMAGES = 9;
+
 function waitForImagesLoaded(container){
     const images = container.querySelectorAll("img");
     const promises = [];
@@ -233,18 +259,7 @@ function waitForImagesLoaded(container){
 
 function setImageLayout(count, container){
     container.className = "images";
-
-    if(count === 1){
-        container.classList.add("one");
-    }else if(count === 2){
-        container.classList.add("two");
-    }else if(count === 3){
-        container.classList.add("three");
-    }else if(count === 4){
-        container.classList.add("four");
-    }else if(count >= 5){
-        container.classList.add("more");
-    }
+    container.classList.add(`layout-${count}`);
 }
 
 function generate(){
@@ -254,13 +269,26 @@ function generate(){
     document.getElementById("showdetail").innerText =
         document.getElementById("detail").value || "รายละเอียดกิจกรรม";
 
-    const files = document.getElementById("images").files;
+    const input = document.getElementById("images");
+    const files = Array.from(input.files);
     const container = document.getElementById("showimages");
 
     container.innerHTML = "";
+
+    if(files.length > MAX_IMAGES){
+        alert("เลือกได้ไม่เกิน 9 รูป");
+        input.value = "";
+        return;
+    }
+
+    if(files.length === 0){
+        container.className = "images";
+        return;
+    }
+
     setImageLayout(files.length, container);
 
-    for(let i = 0; i < files.length; i++){
+    files.forEach(file => {
         const reader = new FileReader();
 
         reader.onload = function(e){
@@ -269,8 +297,8 @@ function generate(){
             container.appendChild(img);
         };
 
-        reader.readAsDataURL(files[i]);
-    }
+        reader.readAsDataURL(file);
+    });
 }
 
 async function downloadJPG(){
